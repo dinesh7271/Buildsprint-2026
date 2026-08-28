@@ -5,10 +5,10 @@ import { Hero } from '@/components/Hero';
 import { AnalysisForm } from '@/components/AnalysisForm';
 import { LoadingState } from '@/components/LoadingState';
 import { ErrorState } from '@/components/ErrorState';
-import { Phase1ResultPreview } from '@/components/Phase1ResultPreview';
+import { ReportTabs } from '@/components/ReportTabs';
 import { analyzeRepository } from '@/lib/api';
 import { MigrationRequest, AnalysisResponse, ApiError } from '@/lib/types';
-import { Terminal, Shield, GitFork, Sparkles, Layers } from 'lucide-react';
+import { Terminal, GitFork } from 'lucide-react';
 
 type ViewState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -126,7 +126,7 @@ export default function Home() {
 
         {viewState === 'success' && analysisResult && (
           <div className="py-6">
-            <Phase1ResultPreview data={analysisResult} onReset={handleReset} />
+            <ReportTabs data={analysisResult} onReset={handleReset} />
           </div>
         )}
       </main>
@@ -134,7 +134,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-slate-800/80 bg-slate-950 py-6 relative z-10 text-center text-xs text-slate-500 font-mono">
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div>Legacy → Modern Migration Scout Agent • Phase 1 Foundation</div>
+          <div>Legacy → Modern Migration Scout Agent • Phase 2 Complete Report UI</div>
           <div className="flex items-center gap-4 text-[11px]">
             <span>Next.js 15 (App Router)</span>
             <span>TypeScript</span>
