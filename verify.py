@@ -1,15 +1,26 @@
 import sys
 import os
 
-print("--- Migration Scout Phase 1 Verification ---")
+print("--- Migration Scout Phase 2 Verification ---")
 
 # Add backend dir to path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    print("1. Verifying Pydantic schemas...")
-    from app.models.schemas import MigrationRequest, ScannerResult, AnalyzerResult, PartialAnalysisResponse
-    print("   [OK] Schemas imported successfully.")
+    print("1. Verifying Pydantic schemas (Phase 1 & Phase 2)...")
+    from app.models.schemas import (
+        MigrationRequest, 
+        ScannerResult, 
+        AnalyzerResult, 
+        PartialAnalysisResponse,
+        AdvisorResult,
+        MigrationReport,
+        ModernAlternative,
+        MigrationStep,
+        PhasedMigrationStep,
+        ModernizedCodeSnippet
+    )
+    print("   [OK] All schemas imported successfully.")
 
     print("2. Verifying Config module...")
     from app.core.config import settings
@@ -23,21 +34,26 @@ try:
     assert get_repo_name_from_url("https://github.com/expressjs/express.git") == "express"
     print("   [OK] Git and File utils parsed successfully.")
 
-    print("4. Verifying Scanner and Analyzer agents...")
+    print("4. Verifying all agents (Scanner, Analyzer, Advisor, Writer)...")
     from app.agents.scanner import ScannerAgent
     from app.agents.analyzer import AnalyzerAgent
-    print("   [OK] Scanner and Analyzer agents imported successfully.")
+    from app.agents.advisor import AdvisorAgent
+    from app.agents.writer import WriterAgent
+    print("   [OK] All agents imported successfully.")
 
-    print("5. Verifying LangGraph Orchestrator...")
+    print("5. Verifying LangGraph Orchestrator (Phase 2 Graph)...")
     from app.agents.orchestrator import Orchestrator
     orchestrator = Orchestrator()
-    print("   [OK] LangGraph workflow compiled successfully.")
+    print("   [OK] Phase 2 LangGraph workflow compiled successfully.")
+    assert hasattr(orchestrator, "run_analysis")
+    assert hasattr(orchestrator, "run_full_analysis")
+    print("   [OK] Orchestrator backward-compatible and full Phase 2 methods are present.")
 
     print("6. Verifying FastAPI application routes...")
     from app.main import app
     print("   [OK] FastAPI app loaded successfully.")
     
-    print("\n[SUCCESS] All backend modules for Phase 1 are syntactically correct and loadable!")
+    print("\n[SUCCESS] All backend modules for Phase 2 are syntactically correct and loadable!")
 
 except Exception as e:
     print(f"\n[FAILURE] Verification failed! Error: {e}")

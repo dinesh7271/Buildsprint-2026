@@ -1,13 +1,13 @@
-# Legacy → Modern Migration Scout Agent (Phase 1 Backend)
+# Legacy → Modern Migration Scout Agent (Phase 2 Backend)
 
 A FastAPI and LangGraph-powered backend for scanning, analysis, and discovery of legacy codebases during modernization planning. 
 
-Phase 1 establishes a robust pipeline for:
-1. Validating and cloning a public GitHub repository using a token-efficient shallow clone (`depth=1`).
-2. Scanning the structure, counting files, estimating lines of code (LOC), detecting programming languages and legacy frameworks, and locating dependency management manifests.
-3. Automatically extracting dependency file contents.
-4. Invoking custom agents (**ScannerAgent** and **AnalyzerAgent**) inside a deterministic, stateful **LangGraph** flow.
-5. Returning typed structured analysis outlining outdated libraries, migration anti-patterns, technical debt scoring, architectural risks, and complexity hotspots.
+In Phase 2, the pipeline is fully extended with principal advisor and documentation synthesis agents:
+1. **Shallow Clone & Scan**: Shallow clones a public GitHub repository and gathers file metrics, languages, and dependency management files.
+2. **ScannerAgent**: Refines raw directory insights to synthesize an executive, token-efficient summary of the codebase.
+3. **AnalyzerAgent**: Reviews dependencies and code tree structure to detect outdated libraries, technical debt, anti-patterns, and complexity hotspots.
+4. **AdvisorAgent**: Formulates architectural alternatives, actionable migration task lists, estimated hours, and 2026 state-of-the-art tech suggestions.
+5. **WriterAgent**: Synthesizes a comprehensive, board-ready executive summary, structured phased plan, legacy-to-modernized code templates, and a detailed GitHub PR description template.
 
 ---
 
@@ -28,10 +28,12 @@ migration-scout-backend/
 ├── app/
 │   ├── main.py                 # FastAPI application entrypoint and middleware
 │   ├── api/
-│   │   └── routes.py           # API route handlers (/health, /analyze-phase1)
+│   │   └── routes.py           # API routes (/health, /analyze-phase1, /analyze)
 │   ├── agents/
 │   │   ├── scanner.py          # ScannerAgent (summarizes repository state using LLM)
 │   │   ├── analyzer.py         # AnalyzerAgent (detects risks, anti-patterns & hotspots)
+│   │   ├── advisor.py          # AdvisorAgent (suggests 2026 modern tech stack alternatives & hours)
+│   │   ├── writer.py           # WriterAgent (compiles final report markdown and code snippets)
 │   │   └── orchestrator.py     # LangGraph workflow definition and state router
 │   ├── core/
 │   │   ├── config.py           # Application settings backed by pydantic-settings
@@ -43,6 +45,7 @@ migration-scout-backend/
 │       └── file_utils.py       # High-performance tree walker, signature checker & LOC estimator
 ├── requirements.txt            # Package dependencies
 ├── .env.example                # Sample environment file
+├── verify.py                   # Automated Phase 2 backend verification test script
 └── README.md                   # Setup and usage guide
 ```
 
@@ -78,7 +81,13 @@ ANTHROPIC_API_KEY=your_anthropic_api_key
 OPENAI_API_KEY=your_openai_api_key
 ```
 
-### 4. Running the Application
+### 4. Running Verification Test
+Ensure that everything is syntactically sound and compilation matches by running the automated suite:
+```bash
+python verify.py
+```
+
+### 5. Running the Application
 Start the FastAPI server using Uvicorn:
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
@@ -97,15 +106,15 @@ Checks if the system is up and displays service metadata.
 ```json
 {
   "status": "healthy",
-  "phase": 1,
+  "phase": 2,
   "service": "Legacy -> Modern Migration Scout Agent Backend"
 }
 ```
 
-### 2. Analyze Repository (Phase 1)
-Clones the repo, triggers the LangGraph flow, and returns structured scanner + analyzer results.
+### 2. Full Migration Report (Phase 2 - New)
+Triggers the full five-step LangGraph flow (Clone -> Scan -> Analyze -> Advise -> Write) to construct a professional modernization report.
 
-* **URL**: `/api/v1/analyze-phase1`
+* **URL**: `/api/v1/analyze`
 * **Method**: `POST`
 * **Headers**: `Content-Type: application/json`
 * **Request Body**:
@@ -121,6 +130,7 @@ Clones the repo, triggers the LangGraph flow, and returns structured scanner + a
 {
   "github_url": "https://github.com/expressjs/express",
   "target_stack": "FastAPI + LangGraph",
+  "status": "completed",
   "scanner_result": {
     "repo_name": "express",
     "primary_language": "JavaScript",
@@ -129,49 +139,70 @@ Clones the repo, triggers the LangGraph flow, and returns structured scanner + a
     "dependency_files": ["package.json"],
     "total_files": 42,
     "estimated_lines_of_code": 15000,
-    "codebase_summary": "The Express repository is a minimal and flexible Node.js web application framework...",
-    "dependency_content": {
-      "package.json": "{\n  \"name\": \"express\",\n  \"version\": \"4.18.2\",\n..."
-    }
+    "codebase_summary": "...",
+    "dependency_content": { ... }
   },
   "analyzer_result": {
-    "outdated_libraries_or_frameworks": [
-      {
-        "name": "Express",
-        "current_version": "4.18.2",
-        "risk_level": "Medium",
-        "risk_description": "Legacy routing mechanisms and callback-heavy patterns require structured migration for modern async Python equivalents.",
-        "upgrade_suggestion": "Transition endpoints to async route handlers in FastAPI using Pydantic schemas for request validation."
-      }
-    ],
-    "detected_risks": [
-      {
-        "category": "Architecture",
-        "description": "Heavy usage of middleware chains and callbacks instead of type-safe dependency injection.",
-        "severity": "Medium",
-        "mitigation_strategy": "Translate middleware sequences into FastAPI Depends decorators or custom ASGI middleware."
-      }
-    ],
-    "migration_anti_patterns": [
-      {
-        "pattern_name": "Dynamic middleware routing",
-        "explanation": "Express allows dynamic runtime registration of middleware which does not map cleanly to FastAPI's compile-time routing declarations.",
-        "recommendation": "Declare all routes and path dependencies statically on APIRouters."
-      }
-    ],
-    "complexity_hotspots": [
-      {
-        "file_path": "lib/router/index.js",
-        "estimated_complexity": "High",
-        "reason": "Large dispatcher and router implementation that handles express middleware layers and matching."
-      }
-    ],
+    "outdated_libraries_or_frameworks": [...],
+    "detected_risks": [...],
+    "migration_anti_patterns": [...],
+    "complexity_hotspots": [...],
     "technical_debt_score": 5,
-    "overall_analyzer_summary": "The repository is highly structured but leverages standard Node callback patterns. Migration to FastAPI is highly viable but requires redesigning the middleware patterns into type-safe Python dependency injections."
+    "overall_analyzer_summary": "..."
   },
-  "status": "completed"
+  "advisor_result": {
+    "modern_alternatives": [
+      {
+        "legacy_library": "Express routing",
+        "modern_replacement": "FastAPI APIRouter",
+        "rationale": "Enables fully asynchronous, type-safe API endpoint declarations utilizing Python coroutines.",
+        "risk_level": "Low",
+        "effort_estimate": "Medium"
+      }
+    ],
+    "recommended_steps": [
+      {
+        "title": "Establish FastAPI Project Blueprint",
+        "description": "Initialize modern project scaffolding, Pydantic settings loading, and APIRouter files.",
+        "target_stack_component": "FastAPI Project Structure",
+        "difficulty": "Low",
+        "estimated_hours": 8
+      }
+    ],
+    "architectural_recommendations": "Adopt an asynchronous, layered directory structure using FastAPI APIRouters. Implement central settings management via pydantic-settings.",
+    "estimated_total_effort": "Medium (2-3 weeks for 1 engineer)"
+  },
+  "executive_summary": "### Executive Summary\n\nModernization of this Express application to FastAPI offers dramatic improvements...",
+  "phased_plan": [
+    {
+      "phase_name": "Phase 1: Environment & Router Foundation",
+      "objectives": ["Scaffold FastAPI project", "Establish configuration loader"],
+      "tasks": ["Set up app/main.py", "Define global router routes"],
+      "estimated_duration": "1 week"
+    }
+  ],
+  "code_snippets": [
+    {
+      "title": "Express to FastAPI Route Conversion",
+      "language": "python",
+      "original_snippet": "app.get('/api/users/:id', (req, res) => { ... })",
+      "modern_snippet": "@router.get('/api/users/{user_id}', response_model=UserResponse)\nasync def get_user(user_id: str): ...",
+      "explanation": "Demonstrates transition from dynamic callback parameters to typed path variables and auto-validated response schemas."
+    }
+  ],
+  "pr_description": "### Pull Request: Modernize Express Routing to FastAPI\n\n#### Summary\n...",
+  "error_logs": []
 }
 ```
+
+### 3. Analyze Repository (Phase 1 - Backward Compatible)
+Clones the repo, triggers the LangGraph flow up to the analyzer, and returns structured scanner + analyzer results.
+
+* **URL**: `/api/v1/analyze-phase1`
+* **Method**: `POST`
+* **Headers**: `Content-Type: application/json`
+* **Request Body**: Same as above
+* **Response (200 OK)**: Partial response omitting advisor and writer sections.
 
 ---
 
@@ -200,6 +231,17 @@ The system coordinates nodes in a deterministic, stateful **LangGraph** flow:
        ┌───────────┐       ┌───────────┐
        │ analyzer  ├──────>│    END    │
        └─────┬─────┘       └───────────┘
+             ├─────────────┐
+      [Success]         [Error]
+             ▼             ▼
+       ┌───────────┐       ┌───────────┐
+       │  advisor  ├──────>│  cleanup  │
+       └─────┬─────┘       └───────────┘
+             │
+             ▼
+       ┌───────────┐
+       │  writer   │
+       └─────┬─────┘
              │
              ▼
        ┌───────────┐
@@ -212,7 +254,7 @@ The system coordinates nodes in a deterministic, stateful **LangGraph** flow:
        └───────────┘
 ```
 
-1. **`clone` (Repo cloner)**: Performs shallow git clone to `/tmp/migration-scout-clones/`. Saves path.
-2. **`scanner` (ScannerAgent)**: Scans directories, extracts LOC, detects frameworks, extracts dependency contents, and uses LLM to write a high-fidelity codebase executive summary.
-3. **`analyzer` (AnalyzerAgent)**: Reviews dependencies and Scanner outputs to perform structured risk, debt, pattern, and hotspot analysis.
-4. **`cleanup` (Disk cleaner)**: Deletes the cloned directory under any condition (success or failure) to keep server disk space optimal.
+### Graceful Degradation Design
+To guarantee production-level reliability:
+- **Critical Nodes (`clone`, `scanner`, `analyzer`)**: If any of these foundational nodes fail, execution halts immediately, and cleanup proceeds to purge the local disk.
+- **Graceful/Non-Critical Nodes (`advisor`, `writer`)**: If LLM generation errors occur (e.g. Rate limits, schema parse exception, context window spikes), the failures are caught, logged, and appended to `error_logs`. The pipeline continues seamlessly, outputting a partial response labeled `status: "partial"`.

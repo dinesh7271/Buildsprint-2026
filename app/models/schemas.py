@@ -86,3 +86,61 @@ class PartialAnalysisResponse(BaseModel):
     scanner_result: ScannerResult = Field(..., description="Results from the repository scanner")
     analyzer_result: AnalyzerResult = Field(..., description="Results from the codebase analyzer")
     status: str = Field("completed", description="Status of the analysis process")
+
+class ModernAlternative(BaseModel):
+    legacy_library: str = Field(..., description="The outdated library or pattern being replaced")
+    modern_replacement: str = Field(..., description="The suggested 2026 replacement technology or approach")
+    rationale: str = Field(..., description="Detailed explanation of why this modern replacement is beneficial")
+    risk_level: str = Field(..., description="Risk of making this replacement: Low, Medium, or High")
+    effort_estimate: str = Field(..., description="Estimated effort to execute this replacement: Low, Medium, or High")
+
+class MigrationStep(BaseModel):
+    title: str = Field(..., description="Short title of the migration action step")
+    description: str = Field(..., description="Details of what needs to be changed and how")
+    target_stack_component: str = Field(..., description="Component of the modern stack (e.g. FastAPI Routes, SQLAlchemy ORM, Pydantic)")
+    difficulty: str = Field(..., description="Difficulty level: Low, Medium, or High")
+    estimated_hours: int = Field(..., description="Estimated engineering hours to execute this step")
+
+class AdvisorResult(BaseModel):
+    modern_alternatives: List[ModernAlternative] = Field(
+        default_factory=list, 
+        description="Suggested modern library/pattern replacements"
+    )
+    recommended_steps: List[MigrationStep] = Field(
+        default_factory=list, 
+        description="Actionable steps recommended to carry out the migration"
+    )
+    architectural_recommendations: str = Field(
+        ..., 
+        description="High level architectural recommendations or modern design pattern blueprints for 2026"
+    )
+    estimated_total_effort: str = Field(
+        ..., 
+        description="Overall estimated effort level and timeline summary"
+    )
+
+class PhasedMigrationStep(BaseModel):
+    phase_name: str = Field(..., description="Name of the migration phase (e.g. Phase 1: Environment Setup)")
+    objectives: List[str] = Field(..., description="Key objectives of this phase")
+    tasks: List[str] = Field(..., description="Specific checklist tasks to complete")
+    estimated_duration: str = Field(..., description="Estimated duration or calendar time (e.g., 1 week, 3 days)")
+
+class ModernizedCodeSnippet(BaseModel):
+    title: str = Field(..., description="Short title describing the snippet conversion")
+    language: str = Field(..., description="Programming language of the snippets")
+    original_snippet: str = Field(..., description="Example of the legacy code pattern")
+    modern_snippet: str = Field(..., description="The modernized target-stack code pattern equivalent")
+    explanation: str = Field(..., description="Walkthrough of the changes and key benefits of the new implementation")
+
+class MigrationReport(BaseModel):
+    github_url: str = Field(..., description="The analyzed GitHub URL")
+    target_stack: str = Field(..., description="The targeted migration stack")
+    status: str = Field("completed", description="Overall execution status: completed or partial")
+    scanner_result: ScannerResult = Field(..., description="Results from the repository scanner")
+    analyzer_result: AnalyzerResult = Field(..., description="Results from the codebase analyzer")
+    advisor_result: Optional[AdvisorResult] = Field(None, description="Advisor results suggesting modern replacements and steps")
+    executive_summary: Optional[str] = Field(None, description="A highly professional executive summary of the migration plan")
+    phased_plan: Optional[List[PhasedMigrationStep]] = Field(None, description="A phased, prioritized execution strategy")
+    code_snippets: Optional[List[ModernizedCodeSnippet]] = Field(None, description="Sample modernization code templates")
+    pr_description: Optional[str] = Field(None, description="Ready-to-use professional GitHub Pull Request description template")
+    error_logs: List[str] = Field(default_factory=list, description="Any errors or warnings that occurred during the pipeline run")

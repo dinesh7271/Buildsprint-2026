@@ -14,9 +14,9 @@ logger = logging.getLogger("migration_scout")
 
 # 2. Initialize FastAPI app
 app = FastAPI(
-    title="Legacy -> Modern Migration Scout Agent - Phase 1 Backend",
-    description="Backend service for scanning and analyzing legacy codebases to prepare for modernization.",
-    version="0.1.0"
+    title="Legacy -> Modern Migration Scout Agent - Phase 2 Backend",
+    description="Backend service for scanning, analyzing, and providing advisors/writing reports for legacy codebases to prepare for modernization.",
+    version="0.2.0"
 )
 
 # 3. Configure CORS middleware
@@ -36,7 +36,7 @@ app.include_router(api_router, prefix="/api/v1")
 def root_health():
     return {
         "status": "healthy",
-        "phase": 1,
+        "phase": 2,
         "service": "Legacy -> Modern Migration Scout Agent Backend"
     }
 
