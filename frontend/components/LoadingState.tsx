@@ -72,37 +72,36 @@ export function LoadingState({ onComplete, targetStack, repoUrl }: LoadingStateP
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
   const progressPercent = Math.min(
-    Math.round(((currentStepIndex * 4 + activeLogIndex + 1) / (STEPS.length * 4)) * 100),
+    Math.round((((currentStepIndex >= STEPS.length ? STEPS.length - 1 : currentStepIndex) * 4 + activeLogIndex + 1) / (STEPS.length * 4)) * 100),
     100
   );
 
   useEffect(() => {
-    // Step progression timer
-    const interval = setInterval(() => {
-      setActiveLogIndex((prevLogIndex) => {
-        const currentStepLogs = STEPS[currentStepIndex].logs;
-        if (prevLogIndex < currentStepLogs.length - 1) {
-          return prevLogIndex + 1;
+    if (currentStepIndex >= STEPS.length) return;
+
+    const currentStepLogs = STEPS[currentStepIndex]?.logs;
+    if (!currentStepLogs) return;
+
+    const timer = setTimeout(() => {
+      if (activeLogIndex < currentStepLogs.length - 1) {
+        setActiveLogIndex((prev) => prev + 1);
+      } else {
+        // Finish current step
+        setCompletedSteps((prev) => [...prev, currentStepIndex]);
+        
+        if (currentStepIndex < STEPS.length - 1) {
+          setCurrentStepIndex((prevStep) => prevStep + 1);
+          setActiveLogIndex(0);
         } else {
-          // Finish current step
-          setCompletedSteps((prev) => [...prev, currentStepIndex]);
-          
-          if (currentStepIndex < STEPS.length - 1) {
-            setCurrentStepIndex((prevStep) => prevStep + 1);
-            return 0;
-          } else {
-            clearInterval(interval);
-            if (onComplete) {
-              setTimeout(onComplete, 1200);
-            }
-            return prevLogIndex;
+          if (onComplete) {
+            onComplete();
           }
         }
-      });
+      }
     }, 1100);
 
-    return () => clearInterval(interval);
-  }, [currentStepIndex, onComplete]);
+    return () => clearTimeout(timer);
+  }, [currentStepIndex, activeLogIndex, onComplete]);
 
   return (
     <motion.div
@@ -146,7 +145,7 @@ export function LoadingState({ onComplete, targetStack, repoUrl }: LoadingStateP
             <Progress value={progressPercent} className="h-2 bg-slate-950 border border-slate-800" />
             <div className="flex justify-between text-[11px] font-mono text-slate-400">
               <span>Target: {targetStack || 'Next.js 15'}</span>
-              <span>Step {currentStepIndex + 1} of {STEPS.length}</span>
+              <span>Step {Math.min(currentStepIndex + 1, STEPS.length)} of {STEPS.length}</span>
             </div>
           </div>
 
@@ -211,7 +210,7 @@ export function LoadingState({ onComplete, targetStack, repoUrl }: LoadingStateP
               )}
 
               {/* Active step logs */}
-              {STEPS[currentStepIndex].logs.slice(0, activeLogIndex + 1).map((log, idx) => (
+              {STEPS[currentStepIndex] && STEPS[currentStepIndex].logs && STEPS[currentStepIndex].logs.slice(0, activeLogIndex + 1).map((log, idx) => (
                 <motion.div
                   key={`active-${currentStepIndex}-${idx}`}
                   initial={{ opacity: 0, x: -5 }}
