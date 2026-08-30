@@ -8,6 +8,8 @@ import { RecommendationsSection } from '@/components/RecommendationsSection';
 import { MigrationPlan } from '@/components/MigrationPlan';
 import { SampleCode } from '@/components/SampleCode';
 import { PRDescription } from '@/components/PRDescription';
+import { RoiCalculator } from '@/components/RoiCalculator';
+import { PromptExporter } from '@/components/PromptExporter';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -209,8 +211,9 @@ ${data.prDescription?.markdown || 'N/A'}
             transition={{ duration: 0.2 }}
             className="w-full pt-1"
           >
-            <TabsContent value="overview" className="mt-0 focus-visible:outline-none">
+            <TabsContent value="overview" className="mt-0 focus-visible:outline-none space-y-6">
               <OverviewCard data={data} />
+              <RoiCalculator linesOfCode={data.summary?.linesOfCode} complexityScore={data.summary?.complexityScore} />
             </TabsContent>
 
             <TabsContent value="risks" className="mt-0 focus-visible:outline-none">
@@ -225,8 +228,14 @@ ${data.prDescription?.markdown || 'N/A'}
               <MigrationPlan migrationPlan={data.migrationPlan} />
             </TabsContent>
 
-            <TabsContent value="code" className="mt-0 focus-visible:outline-none">
+            <TabsContent value="code" className="mt-0 focus-visible:outline-none space-y-6">
               <SampleCode sampleCode={data.sampleCode} />
+              <PromptExporter
+                repoName={data.repoName}
+                detectedLanguage={data.detectedStack?.language}
+                targetStack={data.recommendedStack?.framework}
+                outdatedLibraries={data.outdatedLibraries}
+              />
             </TabsContent>
 
             <TabsContent value="pr" className="mt-0 focus-visible:outline-none">
