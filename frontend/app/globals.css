@@ -57,16 +57,16 @@
   --popover-foreground: #f8fafc;
   --primary: #00f2fe;
   --primary-foreground: #080d1a;
-  --secondary: rgba(22, 33, 56, 0.25); /* Ultra-transparent secondary container */
+  --secondary: rgba(22, 33, 56, 0.25);
   --secondary-foreground: #f8fafc;
   --muted: rgba(22, 33, 56, 0.2);
   --muted-foreground: #94a3b8;
   --accent: rgba(30, 48, 80, 0.3);
   --accent-foreground: #f8fafc;
   --destructive: #ff0055;
-  --border: rgba(0, 242, 254, 0.25); /* Crisp glowing cyan glass border */
+  --border: rgba(0, 242, 254, 0.45); /* High-contrast bright glowing cyan border */
   --input: rgba(22, 33, 56, 0.3);
-  --ring: rgba(0, 242, 254, 0.45);
+  --ring: rgba(0, 242, 254, 0.55);
   --chart-1: #00f2fe;
   --chart-2: #00ff87;
   --chart-3: #a855f7;
@@ -79,8 +79,8 @@
   --sidebar-primary-foreground: #080d1a;
   --sidebar-accent: rgba(22, 33, 56, 0.25);
   --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgba(0, 242, 254, 0.25);
-  --sidebar-ring: rgba(0, 242, 254, 0.45);
+  --sidebar-border: rgba(0, 242, 254, 0.45);
+  --sidebar-ring: rgba(0, 242, 254, 0.55);
 }
 
 .dark {
@@ -99,9 +99,9 @@
   --accent: rgba(30, 48, 80, 0.3);
   --accent-foreground: #f8fafc;
   --destructive: #ff0055;
-  --border: rgba(0, 242, 254, 0.25);
+  --border: rgba(0, 242, 254, 0.45);
   --input: rgba(22, 33, 56, 0.3);
-  --ring: rgba(0, 242, 254, 0.45);
+  --ring: rgba(0, 242, 254, 0.55);
   --chart-1: #00f2fe;
   --chart-2: #00ff87;
   --chart-3: #a855f7;
@@ -113,8 +113,8 @@
   --sidebar-primary-foreground: #080d1a;
   --sidebar-accent: rgba(22, 33, 56, 0.25);
   --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgba(0, 242, 254, 0.25);
-  --sidebar-ring: rgba(0, 242, 254, 0.45);
+  --sidebar-border: rgba(0, 242, 254, 0.45);
+  --sidebar-ring: rgba(0, 242, 254, 0.55);
 }
 
 @layer base {
@@ -127,10 +127,11 @@
   html {
     @apply font-sans;
   }
-  /* Ultra-Glassmorphic Heavy Frosted Blur */
+  /* Ultra-Glassmorphic Heavy Frosted Blur + Neon Border Glows */
   [class*="bg-card"], [class*="bg-secondary"], header, aside {
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.12), inset 0 0 10px rgba(0, 242, 254, 0.05);
   }
 }
 
