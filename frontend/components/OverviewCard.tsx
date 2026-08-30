@@ -179,5 +179,3 @@ export function OverviewCard({ data }: OverviewCardProps) {
     </div>
   );
 }
-  );
-}
