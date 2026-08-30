@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { OutdatedLibrary } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -10,7 +11,7 @@ interface PromptExporterProps {
   repoName?: string;
   detectedLanguage?: string;
   targetStack?: string;
-  outdatedLibraries?: Array<{ name: string; replacement: string }>;
+  outdatedLibraries?: OutdatedLibrary[];
 }
 
 export function PromptExporter({
@@ -30,7 +31,7 @@ You are an expert AI refactoring assistant modernizing ${repoName} from ${detect
 - Enforce strict type safety and modular directory structures.
 - Validate all inbound API models using Zod / Pydantic.
 - Replace legacy packages:
-${outdatedLibraries.map((lib) => `- Replace ${lib.name} with ${lib.replacement}`).join('\n')}
+${outdatedLibraries.map((lib) => `- Replace ${lib.name} with ${lib.replacement || 'Modern equivalent'}`).join('\n')}
 
 ## Code Standards
 - Write clean, asynchronous, well-tested code without deprecated patterns.
@@ -42,7 +43,7 @@ ${outdatedLibraries.map((lib) => `- Replace ${lib.name} with ${lib.replacement}`
 // Primary Language: ${detectedLanguage} -> Target: ${targetStack}
 //
 // Key Replacement Directives:
-${outdatedLibraries.map((lib) => `// - Replace ${lib.name} -> ${lib.replacement}`).join('\n')}
+${outdatedLibraries.map((lib) => `// - Replace ${lib.name} -> ${lib.replacement || 'Modern equivalent'}`).join('\n')}
 //
 // Always output type-safe code matching ${targetStack} conventions.
 `.trim();
