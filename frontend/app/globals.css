@@ -49,38 +49,38 @@
 }
 
 :root {
-  --background: oklch(0.97 0.012 85); /* Premium warm light-beige / sand linen linen backdrop */
-  --foreground: oklch(0.24 0.02 85);
-  --card: oklch(0.99 0.005 85 / 95%); /* Warm bone-white/cream */
-  --card-foreground: oklch(0.24 0.02 85);
-  --popover: oklch(0.99 0.005 85);
-  --popover-foreground: oklch(0.24 0.02 85);
-  --primary: oklch(0.52 0.08 170); /* Warm sage/eucalyptus green for premium organic contrast */
-  --primary-foreground: oklch(0.99 0.002 85);
-  --secondary: oklch(0.94 0.01 85 / 60%); /* Creamy linen blend */
-  --secondary-foreground: oklch(0.24 0.02 85);
-  --muted: oklch(0.94 0.01 85 / 40%);
-  --muted-foreground: oklch(0.48 0.02 85);
-  --accent: oklch(0.90 0.02 85 / 50%);
-  --accent-foreground: oklch(0.22 0.02 85);
-  --destructive: oklch(0.60 0.14 25);
-  --border: oklch(0.88 0.01 85 / 75%);
-  --input: oklch(0.92 0.01 85 / 60%);
-  --ring: oklch(0.52 0.08 170 / 25%);
-  --chart-1: oklch(0.52 0.08 170);
-  --chart-2: oklch(0.58 0.09 210);
-  --chart-3: oklch(0.55 0.10 130);
-  --chart-4: oklch(0.52 0.11 35);
-  --chart-5: oklch(0.45 0.12 0);
-  --radius: 1rem; /* Smooth rounded corners */
-  --sidebar: oklch(0.985 0.005 85);
-  --sidebar-foreground: oklch(0.24 0.02 85);
-  --sidebar-primary: oklch(0.52 0.08 170);
-  --sidebar-primary-foreground: oklch(0.99 0.002 85);
-  --sidebar-accent: oklch(0.94 0.01 85);
-  --sidebar-accent-foreground: oklch(0.24 0.02 85);
-  --sidebar-border: oklch(0.88 0.01 85 / 75%);
-  --sidebar-ring: oklch(0.52 0.08 170 / 25%);
+  --background: #f7f4ef; /* Ultra-smooth warm light beige / sand background */
+  --foreground: #2d2a26; /* Deep warm espresso charcoal for relaxed contrast */
+  --card: #ffffff; /* Clean bone white for cards */
+  --card-foreground: #2d2a26;
+  --popover: #ffffff;
+  --popover-foreground: #2d2a26;
+  --primary: #2d6a4f; /* Chilly sage / pine forest green */
+  --primary-foreground: #f7f4ef;
+  --secondary: #e9e4db; /* Soft warm linen secondary */
+  --secondary-foreground: #2d2a26;
+  --muted: #f0eae1;
+  --muted-foreground: #736d65; /* Warm subtle gray */
+  --accent: #e2dad0;
+  --accent-foreground: #2d2a26;
+  --destructive: #bc4749;
+  --border: #e2dbce; /* Delicate warm border */
+  --input: #e9e3d8;
+  --ring: rgba(45, 106, 79, 0.2);
+  --chart-1: #2d6a4f;
+  --chart-2: #40916c;
+  --chart-3: #52b788;
+  --chart-4: #74c69d;
+  --chart-5: #d8f3dc;
+  --radius: 1rem;
+  --sidebar: #f2ede4; /* Warm linen sidebar background */
+  --sidebar-foreground: #2d2a26;
+  --sidebar-primary: #2d6a4f;
+  --sidebar-primary-foreground: #f7f4ef;
+  --sidebar-accent: #e6dfd3;
+  --sidebar-accent-foreground: #2d2a26;
+  --sidebar-border: #e2dbce;
+  --sidebar-ring: rgba(45, 106, 79, 0.2);
 }
 
 .dark {

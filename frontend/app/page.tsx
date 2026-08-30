@@ -58,14 +58,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary flex flex-col font-sans relative overflow-x-hidden">
-      {/* Background Soft Glows for Cozy Warm Linen/Beige Landing Page Style */}
-      <div className="absolute top-[20%] left-[-10%] w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[150px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
-      <div className="absolute top-[50%] right-[-10%] w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[130px] pointer-events-none animate-pulse" style={{ animationDuration: '12s' }} />
-      <div className="absolute bottom-[10%] left-[20%] w-[400px] h-[400px] bg-yellow-500/5 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDuration: '15s' }} />
+      {/* Background Soft Glows for Chilly Pine & Soft Linen Landing Page Style */}
+      <div className="absolute top-[10%] left-[-5%] w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[150px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
+      <div className="absolute top-[40%] right-[-5%] w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[130px] pointer-events-none animate-pulse" style={{ animationDuration: '12s' }} />
+      <div className="absolute bottom-[5%] left-[25%] w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDuration: '15s' }} />
 
       {/* Background Grid Pattern */}
       <div 
-        className="fixed inset-0 pointer-events-none opacity-[0.2] z-0" 
+        className="fixed inset-0 pointer-events-none opacity-[0.25] z-0" 
         style={{
           backgroundImage: `radial-gradient(circle, var(--primary) 0.75px, transparent 0.75px)`,
           backgroundSize: '36px 36px',
@@ -73,7 +73,7 @@ export default function Home() {
       />
 
       {/* Header / Navbar */}
-      <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50 shadow-sm shadow-border/5">
+      <header className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-50 shadow-sm shadow-border/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5 cursor-pointer" onClick={handleReset}>
             <div className="p-2 rounded-lg bg-primary/10 text-primary border border-primary/20 font-black shadow-md shadow-primary/5">
@@ -99,8 +99,8 @@ export default function Home() {
             </a>
             <div className="h-4 w-px bg-border" />
             <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-secondary border border-border text-foreground flex items-center gap-1.5 shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Agent Active
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+              Chilly Vibe • Online
             </span>
           </div>
         </div>
@@ -111,20 +111,20 @@ export default function Home() {
         
         {/* Left Sidebar Control Panel */}
         <aside className="w-full lg:w-64 shrink-0 flex flex-col gap-6">
-          <div className="p-5 rounded-2xl border border-border bg-card/60 backdrop-blur-md shadow-sm space-y-5">
+          <div className="p-5 rounded-2xl border border-border bg-card/80 backdrop-blur-md shadow-sm space-y-5">
             <div className="space-y-1">
               <h3 className="text-xs font-bold font-mono text-muted-foreground uppercase tracking-wider">Control Center</h3>
               <p className="text-[11px] text-muted-foreground font-mono leading-tight">Manage scanner preferences</p>
             </div>
 
             {/* Sidebar Navigation */}
-            <nav className="flex flex-col gap-1">
+            <nav className="flex flex-col gap-1.5">
               <button
                 onClick={() => { setActiveMenu('dashboard'); if (viewState === 'success') handleReset(); }}
                 className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activeMenu === 'dashboard'
                     ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+                    : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
                 }`}
               >
                 <Layout className="w-4 h-4" />
@@ -136,7 +136,7 @@ export default function Home() {
                 className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activeMenu === 'presets'
                     ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+                    : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
                 }`}
               >
                 <Compass className="w-4 h-4" />
@@ -148,7 +148,7 @@ export default function Home() {
                 className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   activeMenu === 'guide'
                     ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+                    : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground'
                 }`}
               >
                 <HelpCircle className="w-4 h-4" />
@@ -161,20 +161,20 @@ export default function Home() {
             {/* Micro Session Quick Stats Widget */}
             <div className="space-y-3">
               <span className="text-[10px] font-bold font-mono text-muted-foreground uppercase tracking-wider block">Session Info</span>
-              <div className="p-3 rounded-xl bg-background/50 border border-border space-y-2 text-[11px] font-mono text-muted-foreground">
+              <div className="p-3 rounded-xl bg-background/60 border border-border space-y-2 text-[11px] font-mono text-muted-foreground">
                 <div className="flex items-center justify-between">
                   <span>Engine:</span>
                   <span className="font-bold text-foreground">FastAPI + AST</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span>Vibe check:</span>
+                  <span>Vibe Check:</span>
                   <span className="font-bold text-primary flex items-center gap-1">
-                    <Coffee className="w-3 h-3 text-amber-600" /> Sand Beige
+                    <Coffee className="w-3 h-3 text-primary" /> Chilly Pine
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>Status:</span>
-                  <span className="text-emerald-600 font-bold">Online</span>
+                  <span className="text-emerald-700 font-bold">Ready</span>
                 </div>
               </div>
             </div>
@@ -187,7 +187,7 @@ export default function Home() {
               <span className="text-xs font-bold font-mono uppercase tracking-wider">Fast Insights</span>
             </div>
             <p className="text-[11px] text-muted-foreground leading-relaxed font-mono">
-              Scout scans AST node structures, tracking packages to construct a safe, minimal-risk migration route.
+              Scout parses AST node structures & package trees to construct a safe, minimal-risk migration route.
             </p>
           </div>
         </aside>
@@ -195,10 +195,10 @@ export default function Home() {
         {/* Right Workspace Content Area */}
         <main className="flex-1 flex flex-col justify-center min-w-0">
           {activeMenu === 'presets' ? (
-            <div className="p-6 rounded-2xl border border-border bg-card/60 backdrop-blur-md shadow-sm space-y-6">
+            <div className="p-6 sm:p-8 rounded-2xl border border-border bg-card/80 backdrop-blur-md shadow-sm space-y-6">
               <div className="space-y-1">
-                <h2 className="text-lg font-bold font-mono flex items-center gap-2">
-                  <Flame className="w-5 h-5 text-amber-600 animate-pulse" /> TARGET ARCHITECTURE PRESETS
+                <h2 className="text-lg font-bold font-mono flex items-center gap-2 text-foreground">
+                  <Flame className="w-5 h-5 text-primary animate-pulse" /> TARGET ARCHITECTURE PRESETS
                 </h2>
                 <p className="text-xs text-muted-foreground font-mono">Pre-configured modern architectural stacks for seamless legacy replacement.</p>
               </div>
@@ -225,24 +225,24 @@ export default function Home() {
               </button>
             </div>
           ) : activeMenu === 'guide' ? (
-            <div className="p-6 rounded-2xl border border-border bg-card/60 backdrop-blur-md shadow-sm space-y-6">
+            <div className="p-6 sm:p-8 rounded-2xl border border-border bg-card/80 backdrop-blur-md shadow-sm space-y-6">
               <div className="space-y-1">
-                <h2 className="text-lg font-bold font-mono flex items-center gap-2">
+                <h2 className="text-lg font-bold font-mono flex items-center gap-2 text-foreground">
                   <HelpCircle className="w-5 h-5 text-primary" /> SCANNER USER GUIDE
                 </h2>
                 <p className="text-xs text-muted-foreground font-mono">Understand how the AI Scout Agent scans and generates your roadmap.</p>
               </div>
               <div className="space-y-4 font-mono text-xs text-muted-foreground leading-relaxed">
                 <p>
-                  <strong>1. Codebase Identification:</strong> Inputting a GitHub URL allows our scanner to clone, parse, and analyze directory files dynamically.
+                  <strong className="text-foreground">1. Codebase Identification:</strong> Inputting a GitHub URL allows our scanner to clone, parse, and analyze directory files dynamically.
                 </p>
                 <p>
-                  <strong>2. AST (Abstract Syntax Tree) Mapping:</strong> The backend maps exact imports, functions, and models to look for deprecated schemas, legacy structures, or insecure code flows.
+                  <strong className="text-foreground">2. AST (Abstract Syntax Tree) Mapping:</strong> The backend maps exact imports, functions, and models to look for deprecated schemas, legacy structures, or insecure code flows.
                 </p>
                 <p>
-                  <strong>3. Phased Roadmap Generation:</strong> A complete migration plan is designed to implement, verify, and switch system paths iteratively to prevent regressions.
+                  <strong className="text-foreground">3. Phased Roadmap Generation:</strong> A complete migration plan is designed to implement, verify, and switch system paths iteratively to prevent regressions.
                 </p>
-                <div className="p-3.5 rounded-xl bg-amber-500/5 border border-amber-500/20 text-amber-700">
+                <div className="p-3.5 rounded-xl bg-primary/10 border border-primary/20 text-primary font-medium">
                   ⚡ <strong>Note:</strong> Make sure to supply your LLM keys in the backend configurations to enable automatic, personalized code suggestions.
                 </div>
               </div>
@@ -288,9 +288,9 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card/60 backdrop-blur-sm py-6 relative z-10 text-center text-xs text-muted-foreground font-mono mt-auto">
+      <footer className="border-t border-border bg-card/80 backdrop-blur-sm py-6 relative z-10 text-center text-xs text-muted-foreground font-mono mt-auto">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div>Legacy → Modern Migration Scout Agent • Relaxing Light Theme UI</div>
+          <div>Legacy → Modern Migration Scout Agent • Chilly Vibe UI</div>
           <div className="flex items-center gap-4 text-[10px] text-muted-foreground/80 uppercase tracking-wider font-bold">
             <span>Next.js 15 (App Router)</span>
             <span>TypeScript</span>
