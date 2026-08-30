@@ -6,6 +6,7 @@ import { AnalysisForm } from '@/components/AnalysisForm';
 import { LoadingState } from '@/components/LoadingState';
 import { ErrorState } from '@/components/ErrorState';
 import { ReportTabs } from '@/components/ReportTabs';
+import { CursorGlow } from '@/components/CursorGlow';
 import { analyzeRepository } from '@/lib/api';
 import { MigrationRequest, AnalysisResponse, ApiError } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
@@ -60,6 +61,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans relative overflow-x-hidden selection:bg-primary/20 selection:text-primary">
+      {/* Interactive Cursor Glowing Tracker */}
+      <CursorGlow />
+
       {/* Animated Soft Cyberpunk Background Glows */}
       <div className="fixed top-[-100px] left-[10%] w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[170px] pointer-events-none animate-float-slow" />
       <div className="fixed bottom-[-100px] right-[10%] w-[650px] h-[650px] bg-purple-600/20 rounded-full blur-[170px] pointer-events-none animate-float-reverse" />
