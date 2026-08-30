@@ -49,38 +49,38 @@
 }
 
 :root {
-  --background: #f7f4ef; /* Ultra-smooth warm light beige / sand background */
-  --foreground: #2d2a26; /* Deep warm espresso charcoal for relaxed contrast */
-  --card: #ffffff; /* Clean bone white for cards */
-  --card-foreground: #2d2a26;
-  --popover: #ffffff;
-  --popover-foreground: #2d2a26;
-  --primary: #2d6a4f; /* Chilly sage / pine forest green */
-  --primary-foreground: #f7f4ef;
-  --secondary: #e9e4db; /* Soft warm linen secondary */
-  --secondary-foreground: #2d2a26;
-  --muted: #f0eae1;
-  --muted-foreground: #736d65; /* Warm subtle gray */
-  --accent: #e2dad0;
-  --accent-foreground: #2d2a26;
-  --destructive: #bc4749;
-  --border: #e2dbce; /* Delicate warm border */
-  --input: #e9e3d8;
-  --ring: rgba(45, 106, 79, 0.2);
-  --chart-1: #2d6a4f;
-  --chart-2: #40916c;
-  --chart-3: #52b788;
-  --chart-4: #74c69d;
-  --chart-5: #d8f3dc;
+  --background: #dfd8cb; /* Rich, darker warm linen-sand light theme backdrop */
+  --foreground: #1c1917; /* Deep warm stone charcoal for high legibility */
+  --card: #f4eee3; /* Slightly darker warm cream card backdrop */
+  --card-foreground: #1c1917;
+  --popover: #f4eee3;
+  --popover-foreground: #1c1917;
+  --primary: #1b4332; /* Deeper chilly forest green primary */
+  --primary-foreground: #f4eee3;
+  --secondary: #d4ccbe; /* Deeper warm linen secondary */
+  --secondary-foreground: #1c1917;
+  --muted: #d9d1c3;
+  --muted-foreground: #57534e; /* Darker warm stone gray */
+  --accent: #cdbcab;
+  --accent-foreground: #1c1917;
+  --destructive: #b91c1c;
+  --border: #c8bead; /* Deeper border for clear card structure */
+  --input: #d1c6b5;
+  --ring: rgba(27, 67, 50, 0.25);
+  --chart-1: #1b4332;
+  --chart-2: #2d6a4f;
+  --chart-3: #40916c;
+  --chart-4: #52b788;
+  --chart-5: #74c69d;
   --radius: 1rem;
-  --sidebar: #f2ede4; /* Warm linen sidebar background */
-  --sidebar-foreground: #2d2a26;
-  --sidebar-primary: #2d6a4f;
-  --sidebar-primary-foreground: #f7f4ef;
-  --sidebar-accent: #e6dfd3;
-  --sidebar-accent-foreground: #2d2a26;
-  --sidebar-border: #e2dbce;
-  --sidebar-ring: rgba(45, 106, 79, 0.2);
+  --sidebar: #d9d1c3; /* Matching deeper warm linen sidebar */
+  --sidebar-foreground: #1c1917;
+  --sidebar-primary: #1b4332;
+  --sidebar-primary-foreground: #f4eee3;
+  --sidebar-accent: #cdbcab;
+  --sidebar-accent-foreground: #1c1917;
+  --sidebar-border: #c8bead;
+  --sidebar-ring: rgba(27, 67, 50, 0.25);
 }
 
 .dark {

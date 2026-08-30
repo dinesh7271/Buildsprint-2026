@@ -132,35 +132,35 @@ export default function Home() {
           </div>
 
           {/* Navigation Items */}
-          <nav className="hidden md:flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider">
+          <nav className="hidden md:flex items-center justify-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-xl bg-secondary/40 border border-border">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`px-3.5 py-1.5 rounded-lg transition-all ${
-                activeTab === 'overview' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted-foreground hover:text-foreground'
+              className={`px-4 py-1.5 rounded-lg transition-all cursor-pointer ${
+                activeTab === 'overview' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
               }`}
             >
               Overview
             </button>
             <button
               onClick={() => setActiveTab('workbench')}
-              className={`px-3.5 py-1.5 rounded-lg transition-all ${
-                activeTab === 'workbench' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted-foreground hover:text-foreground'
+              className={`px-4 py-1.5 rounded-lg transition-all cursor-pointer ${
+                activeTab === 'workbench' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
               }`}
             >
               Workbench
             </button>
             <button
               onClick={() => setActiveTab('presets')}
-              className={`px-3.5 py-1.5 rounded-lg transition-all ${
-                activeTab === 'presets' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted-foreground hover:text-foreground'
+              className={`px-4 py-1.5 rounded-lg transition-all cursor-pointer ${
+                activeTab === 'presets' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
               }`}
             >
               Presets
             </button>
             <button
               onClick={() => setActiveTab('guide')}
-              className={`px-3.5 py-1.5 rounded-lg transition-all ${
-                activeTab === 'guide' ? 'bg-primary/10 text-primary border border-primary/20' : 'text-muted-foreground hover:text-foreground'
+              className={`px-4 py-1.5 rounded-lg transition-all cursor-pointer ${
+                activeTab === 'guide' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
               }`}
             >
               Docs
