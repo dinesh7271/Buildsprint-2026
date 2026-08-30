@@ -154,45 +154,45 @@ ${data.prDescription?.markdown || 'N/A'}
 
       {/* Main Tabbed Interface */}
       <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
-        <TabsList className="bg-card/90 border border-border p-1.5 rounded-2xl w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5 h-auto shadow-sm">
+        <TabsList className="bg-card border border-border p-1.5 rounded-2xl w-full flex flex-wrap sm:flex-nowrap items-center justify-start sm:justify-between gap-1.5 h-auto shadow-sm overflow-x-auto scrollbar-none">
           <TabsTrigger
             value="overview"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground shrink-0 flex-1"
           >
             <LayoutDashboard className="w-3.5 h-3.5" />
             <span>Overview</span>
           </TabsTrigger>
           <TabsTrigger
             value="risks"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground shrink-0 flex-1"
           >
             <ShieldAlert className="w-3.5 h-3.5" />
             <span>Risks & Deps</span>
           </TabsTrigger>
           <TabsTrigger
             value="recommendations"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground shrink-0 flex-1"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Proposals</span>
           </TabsTrigger>
           <TabsTrigger
             value="plan"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground shrink-0 flex-1"
           >
             <Layers className="w-3.5 h-3.5" />
             <span>Roadmap</span>
           </TabsTrigger>
           <TabsTrigger
             value="code"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground shrink-0 flex-1"
           >
             <Code2 className="w-3.5 h-3.5" />
             <span>AST Code</span>
           </TabsTrigger>
           <TabsTrigger
             value="pr"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer text-muted-foreground hover:text-foreground shrink-0 flex-1"
           >
             <GitPullRequest className="w-3.5 h-3.5" />
             <span>PR Spec</span>
@@ -207,6 +207,7 @@ ${data.prDescription?.markdown || 'N/A'}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
+            className="w-full pt-1"
           >
             <TabsContent value="overview" className="mt-0 focus-visible:outline-none">
               <OverviewCard data={data} />

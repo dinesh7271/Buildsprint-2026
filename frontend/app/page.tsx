@@ -106,15 +106,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Grid Canvas Overlay */}
-      <div 
-        className="fixed inset-0 pointer-events-none opacity-[0.25] z-0" 
-        style={{
-          backgroundImage: `radial-gradient(circle, var(--primary) 0.75px, transparent 0.75px)`,
-          backgroundSize: '32px 32px',
-        }}
-      />
-
       {/* Top Professional Landing Navigation Header */}
       <header className="border-b border-border bg-card/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
