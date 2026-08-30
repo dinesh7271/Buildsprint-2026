@@ -8,6 +8,7 @@ import { ErrorState } from '@/components/ErrorState';
 import { ReportTabs } from '@/components/ReportTabs';
 import { analyzeRepository } from '@/lib/api';
 import { MigrationRequest, AnalysisResponse, ApiError } from '@/lib/types';
+import { Badge } from '@/components/ui/badge';
 import { Radar, GitFork, Layout, Compass, Sparkles, HelpCircle, Award, Flame, Star, Coffee, Code2, Shield, Activity, ChevronRight, Layers, Cpu, Terminal, Rocket } from 'lucide-react';
 
 type ViewState = 'idle' | 'loading' | 'success' | 'error';
