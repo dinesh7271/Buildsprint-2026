@@ -5,16 +5,23 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     PORT: int = 8000
     
-    # API Keys
+    # API Keys for Multi-LLM Providers
     ANTHROPIC_API_KEY: Optional[str] = None
     OPENAI_API_KEY: Optional[str] = None
+    GEMINI_API_KEY: Optional[str] = None
+    GOOGLE_API_KEY: Optional[str] = None
+    LATENTROUTER_API_KEY: Optional[str] = None
+    OPENROUTER_API_KEY: Optional[str] = None
     
-    # Provider options: "anthropic" or "openai"
-    PRIMARY_LLM_PROVIDER: str = "anthropic"
-    PRIMARY_LLM_MODEL: str = "claude-3-5-sonnet-20240620"
+    # LatentRouter / OpenRouter Config
+    LATENTROUTER_BASE_URL: str = "https://router.latentstack.dev/v1"
     
-    FALLBACK_LLM_PROVIDER: str = "openai"
-    FALLBACK_LLM_MODEL: str = "gpt-4o-mini"
+    # Provider options: "gemini", "anthropic", "openai", "latentrouter", "openrouter"
+    PRIMARY_LLM_PROVIDER: str = "gemini"
+    PRIMARY_LLM_MODEL: str = "gemini-1.5-flash"
+    
+    FALLBACK_LLM_PROVIDER: str = "anthropic"
+    FALLBACK_LLM_MODEL: str = "claude-3-5-sonnet-20240620"
     
     # Temporary directory for cloning repos
     CLONE_DIR: str = "/tmp/migration-scout-clones"

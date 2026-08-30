@@ -14,7 +14,7 @@ T = TypeVar("T", bound=BaseModel)
 
 class RuleBasedFallbackLLM(BaseChatModel):
     """
-    Fallback LLM runner used when external LLM API keys (Anthropic/OpenAI)
+    Fallback LLM runner used when external LLM API keys (Gemini/LatentRouter/Anthropic/OpenAI)
     are missing, unconfigured, or fail at runtime (e.g., 429 quota exhausted).
     Prevents workflow crashes while enabling rule-based analysis.
     """
@@ -114,7 +114,7 @@ class RuleBasedFallbackLLM(BaseChatModel):
 class ResilientStructuredRunnable:
     """
     Wraps primary structured LLM runnables with automatic fallback
-    to RuleBasedFallbackLLM if OpenAI/Anthropic fails at runtime with
+    to RuleBasedFallbackLLM if external providers fail at runtime with
     429 Insufficient Quota, Rate Limits, or Network Errors.
     """
     def __init__(self, primary_runnable: Any, schema: Type[T]):
@@ -134,61 +134,114 @@ class ResilientStructuredRunnable:
             return self.fallback_runnable.invoke(input_messages, **kwargs)
 
 
+def _create_llm_instance(provider: str, model: str) -> Optional[BaseChatModel]:
+    """
+    Attempts to instantiate a BaseChatModel for gemini, latentrouter/openrouter, anthropic, or openai.
+    """
+    prov = provider.lower().strip()
+    
+    # 1. Google Gemini Provider
+    if prov in ["gemini", "google", "google-genai"]:
+        gemini_key = settings.GEMINI_API_KEY or settings.GOOGLE_API_KEY
+        if gemini_key:
+            try:
+                from langchain_google_genai import ChatGoogleGenerativeAI
+                logger.info(f"Initializing Google Gemini Chat model ({model})...")
+                return ChatGoogleGenerativeAI(
+                    model=model or "gemini-1.5-flash",
+                    google_api_key=gemini_key,
+                    temperature=0.0
+                )
+            except ImportError:
+                logger.warning("langchain_google_genai not installed. Trying ChatOpenAI compatibility for Gemini...")
+                return ChatOpenAI(
+                    model=model or "gemini-1.5-flash",
+                    openai_api_key=gemini_key,
+                    openai_api_base="https://generativelanguage.googleapis.com/v1beta/openai/",
+                    temperature=0.0
+                )
+        else:
+            logger.warning("Gemini / Google API key missing.")
+
+    # 2. LatentRouter / LatentCode / OpenRouter Provider
+    elif prov in ["latentrouter", "latentcode", "openrouter"]:
+        router_key = settings.LATENTROUTER_API_KEY or settings.OPENROUTER_API_KEY
+        if router_key:
+            base_url = settings.LATENTROUTER_BASE_URL or "https://router.latentstack.dev/v1"
+            logger.info(f"Initializing LatentRouter Chat model ({model}) at {base_url}...")
+            return ChatOpenAI(
+                model=model or "latentrouter/gemini/gemini-3.7-flash",
+                openai_api_key=router_key,
+                openai_api_base=base_url,
+                temperature=0.0
+            )
+        else:
+            logger.warning("LatentRouter / OpenRouter API key missing.")
+
+    # 3. Anthropic Provider
+    elif prov == "anthropic":
+        if settings.ANTHROPIC_API_KEY:
+            logger.info(f"Initializing Anthropic Chat model ({model})...")
+            return ChatAnthropic(
+                model=model or "claude-3-5-sonnet-20240620",
+                anthropic_api_key=settings.ANTHROPIC_API_KEY,
+                temperature=0.0
+            )
+        else:
+            logger.warning("Anthropic API key missing.")
+
+    # 4. OpenAI Provider
+    elif prov == "openai":
+        if settings.OPENAI_API_KEY:
+            logger.info(f"Initializing OpenAI Chat model ({model})...")
+            return ChatOpenAI(
+                model=model or "gpt-4o-mini",
+                openai_api_key=settings.OPENAI_API_KEY,
+                temperature=0.0
+            )
+        else:
+            logger.warning("OpenAI API key missing.")
+
+    return None
+
+
 def get_llm(provider: Optional[str] = None, model: Optional[str] = None) -> BaseChatModel:
     """
     Returns an instance of BaseChatModel based on configured settings.
-    If primary and fallback LLM providers fail or lack API keys, returns RuleBasedFallbackLLM.
+    Cascades through primary provider -> fallback provider -> RuleBasedFallbackLLM.
     """
-    prov = provider or settings.PRIMARY_LLM_PROVIDER
-    mod = model or settings.PRIMARY_LLM_MODEL
+    primary_prov = provider or settings.PRIMARY_LLM_PROVIDER
+    primary_mod = model or settings.PRIMARY_LLM_MODEL
     
-    # Check key for primary
-    if prov == "anthropic" and not settings.ANTHROPIC_API_KEY:
-        logger.warning("Anthropic API key missing. Trying fallback provider.")
-        prov = settings.FALLBACK_LLM_PROVIDER
-        mod = settings.FALLBACK_LLM_MODEL
-    elif prov == "openai" and not settings.OPENAI_API_KEY:
-        logger.warning("OpenAI API key missing. Trying fallback provider.")
-        prov = settings.FALLBACK_LLM_PROVIDER
-        mod = settings.FALLBACK_LLM_MODEL
+    # Try primary provider
+    instance = _create_llm_instance(primary_prov, primary_mod)
+    if instance:
+        return instance
 
-    try:
-        if prov == "anthropic" and settings.ANTHROPIC_API_KEY:
-            return ChatAnthropic(
-                model=mod,
-                anthropic_api_key=settings.ANTHROPIC_API_KEY,
-                temperature=0.0
-            )
-        elif prov == "openai" and settings.OPENAI_API_KEY:
-            return ChatOpenAI(
-                model=mod,
-                openai_api_key=settings.OPENAI_API_KEY,
-                temperature=0.0
-            )
-    except Exception as e:
-        logger.error(f"Failed to initialize primary provider {prov}. Error: {e}")
-
-    # Check fallback provider explicitly
+    # Cascade to fallback provider
     fallback_prov = settings.FALLBACK_LLM_PROVIDER
     fallback_mod = settings.FALLBACK_LLM_MODEL
+    logger.warning(f"Primary provider '{primary_prov}' unconfigured or failed. Cascading to fallback '{fallback_prov}'...")
+    
+    fallback_instance = _create_llm_instance(fallback_prov, fallback_mod)
+    if fallback_instance:
+        return fallback_instance
 
-    try:
-        if fallback_prov == "anthropic" and settings.ANTHROPIC_API_KEY:
-            return ChatAnthropic(
-                model=fallback_mod,
-                anthropic_api_key=settings.ANTHROPIC_API_KEY,
-                temperature=0.0
-            )
-        elif fallback_prov == "openai" and settings.OPENAI_API_KEY:
-            return ChatOpenAI(
-                model=fallback_mod,
-                openai_api_key=settings.OPENAI_API_KEY,
-                temperature=0.0
-            )
-    except Exception as e:
-        logger.error(f"Failed to initialize fallback provider {fallback_prov}. Error: {e}")
+    # Cascade to remaining providers (Gemini -> Anthropic -> OpenAI -> LatentRouter)
+    cascade_chain = [
+        ("gemini", "gemini-1.5-flash"),
+        ("anthropic", "claude-3-5-sonnet-20240620"),
+        ("openai", "gpt-4o-mini"),
+        ("latentrouter", "latentrouter/gemini/gemini-3.7-flash"),
+    ]
 
-    logger.warning("No LLM API keys configured (ANTHROPIC_API_KEY & OPENAI_API_KEY missing). Operating in Rule-Based Heuristic Mode.")
+    for c_prov, c_mod in cascade_chain:
+        c_instance = _create_llm_instance(c_prov, c_mod)
+        if c_instance:
+            logger.info(f"Cascade successfully resolved to provider '{c_prov}'")
+            return c_instance
+
+    logger.warning("No LLM API keys configured across all providers. Operating in Rule-Based Heuristic Mode.")
     return RuleBasedFallbackLLM()
 
 

@@ -6,12 +6,12 @@ services:
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PRIMARY_LLM_PROVIDER
-        value: anthropic
+        value: gemini
       - key: PRIMARY_LLM_MODEL
-        value: claude-3-5-sonnet-20240620
+        value: gemini-1.5-flash
       - key: FALLBACK_LLM_PROVIDER
-        value: openai
+        value: anthropic
       - key: FALLBACK_LLM_MODEL
-        value: gpt-4o-mini
+        value: claude-3-5-sonnet-20240620
       - key: CLONE_DIR
         value: /tmp/migration-scout-clones
