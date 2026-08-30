@@ -7,6 +7,7 @@ import { LoadingState } from '@/components/LoadingState';
 import { ErrorState } from '@/components/ErrorState';
 import { ReportTabs } from '@/components/ReportTabs';
 import { CursorGlow } from '@/components/CursorGlow';
+import { ScanHistory } from '@/components/ScanHistory';
 import { analyzeRepository } from '@/lib/api';
 import { MigrationRequest, AnalysisResponse, ApiError } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
@@ -327,6 +328,9 @@ export default function Home() {
 
                 <AnalysisForm onSubmit={handleFormSubmit} isLoading={viewState === 'loading'} />
               </div>
+
+              {/* Scan History Persistence Manager */}
+              <ScanHistory />
             </div>
           )}
 

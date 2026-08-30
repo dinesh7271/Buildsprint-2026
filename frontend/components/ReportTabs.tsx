@@ -10,6 +10,8 @@ import { SampleCode } from '@/components/SampleCode';
 import { PRDescription } from '@/components/PRDescription';
 import { RoiCalculator } from '@/components/RoiCalculator';
 import { PromptExporter } from '@/components/PromptExporter';
+import { DependencyTree } from '@/components/DependencyTree';
+import { DiffViewer } from '@/components/DiffViewer';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -224,11 +226,21 @@ ${data.prDescription?.markdown || 'N/A'}
               <RecommendationsSection recommendations={data.recommendations} />
             </TabsContent>
 
-            <TabsContent value="plan" className="mt-0 focus-visible:outline-none">
+            <TabsContent value="plan" className="mt-0 focus-visible:outline-none space-y-6">
+              <DependencyTree
+                repoName={data.repoName}
+                primaryLanguage={data.detectedStack?.language}
+                targetStack={data.recommendedStack?.framework}
+              />
               <MigrationPlan migrationPlan={data.migrationPlan} />
             </TabsContent>
 
             <TabsContent value="code" className="mt-0 focus-visible:outline-none space-y-6">
+              <DiffViewer
+                filename={`${data.repoName.split('/')[1] || 'migration'}-ast-refactor.ts`}
+                legacyCode={data.sampleCode?.[0]?.legacyCode}
+                modernCode={data.sampleCode?.[0]?.modernCode}
+              />
               <SampleCode sampleCode={data.sampleCode} />
               <PromptExporter
                 repoName={data.repoName}
