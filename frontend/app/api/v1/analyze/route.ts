@@ -134,7 +134,6 @@ export async function POST(request: Request) {
     }
 
     // Dynamic GitHub API Inspection Fallback
-    // This fetches real metadata directly from GitHub for the user's specific repository!
     let repoMeta: any = {};
     let languageData: any = {};
     let packageJson: any = null;
@@ -152,7 +151,6 @@ export async function POST(request: Request) {
         languageData = await langRes.json();
       }
 
-      // Try fetching package.json or requirements.txt
       const pkgRes = await fetch(`https://raw.githubusercontent.com/${owner}/${repo}/HEAD/package.json`);
       if (pkgRes.ok) {
         packageJson = await pkgRes.json();
@@ -169,18 +167,17 @@ export async function POST(request: Request) {
     // Determine real primary language & frameworks
     const primaryLanguage = repoMeta.language || Object.keys(languageData)[0] || 'TypeScript';
     const allLanguages = Object.keys(languageData).length > 0 ? Object.keys(languageData) : [primaryLanguage];
-    const repoDescription = repoMeta.description || `Repository ${owner}/${repo} inspection analysis`;
-    const repoStars = repoMeta.stargazers_count || 0;
     const repoSizeKb = repoMeta.size || 1200;
     const selectedTarget = targetStack || 'Next.js 15 (App Router)';
 
-    // Extract real dependencies from package.json or requirements.txt
+    // Parse actual dependency packages
     const outdatedLibs: any[] = [];
-    const securityRisksList: any[] = [];
+    const detectedDepsNames: string[] = [];
 
     if (packageJson && packageJson.dependencies) {
       const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
       Object.entries(deps).forEach(([depName, ver]: [string, any], idx) => {
+        detectedDepsNames.push(depName.toLowerCase());
         if (idx < 6) {
           const cleanVer = String(ver).replace(/[^0-9.]/g, '') || '1.0.0';
           outdatedLibs.push({
@@ -188,7 +185,7 @@ export async function POST(request: Request) {
             currentVersion: cleanVer,
             latestVersion: 'Latest 2026',
             riskLevel: idx === 0 ? 'Critical' : idx < 3 ? 'High' : 'Medium',
-            vulnerabilities: [`Legacy package syntax detected in ${owner}/${repo}`],
+            vulnerabilities: [`Legacy dependency syntax in ${owner}/${repo}`],
             replacement: `Modern @${depName.replace('@', '')} equivalent`,
           });
         }
@@ -199,6 +196,7 @@ export async function POST(request: Request) {
         const parts = line.split(/==|>=|<=/);
         const name = parts[0].trim();
         const ver = parts[1]?.trim() || '1.0.0';
+        detectedDepsNames.push(name.toLowerCase());
         outdatedLibs.push({
           name: name,
           currentVersion: ver,
@@ -210,11 +208,10 @@ export async function POST(request: Request) {
       });
     }
 
-    // Fallback default libs if no package file was public
     if (outdatedLibs.length === 0) {
       outdatedLibs.push(
         {
-          name: `${primaryLanguage.toLowerCase()}-core-dep`,
+          name: `${primaryLanguage.toLowerCase()}-core-module`,
           currentVersion: '1.2.0',
           latestVersion: '3.0.0',
           riskLevel: 'High',
@@ -232,28 +229,225 @@ export async function POST(request: Request) {
       );
     }
 
-    securityRisksList.push(
-      {
-        id: 'SEC-01',
-        severity: 'High',
-        category: 'Dependency Vulnerability',
-        title: `Outdated ${primaryLanguage} dependencies detected in ${repo}`,
-        description: `Repository ${owner}/${repo} contains dependencies requiring modernization to meet 2026 OWASP guidelines.`,
-        location: `${owner}/${repo}/manifest`,
-        remediation: `Upgrade dependencies to modern release versions and adopt ${selectedTarget}.`,
-      },
-      {
-        id: 'SEC-02',
-        severity: 'Medium',
-        category: 'Configuration Security',
-        title: 'Environment Variable Audit Recommended',
-        description: 'Verify secrets and API keys are stored in encrypted environment settings instead of repository files.',
-        location: `${owner}/${repo}/.env`,
-        remediation: 'Inject runtime credentials via Vercel or Render Environment Variables.',
-      }
-    );
+    // DYNAMIC RECOMMENDATIONS SPECIFIC TO THE DETECTED LANGUAGE & PACKAGES
+    const dynamicRecommendations: any[] = [];
+    const langLower = primaryLanguage.toLowerCase();
 
-    // Build real repo specific response
+    if (langLower.includes('script') || langLower.includes('javascript') || langLower.includes('typescript')) {
+      if (detectedDepsNames.some((d) => d.includes('express'))) {
+        dynamicRecommendations.push({
+          id: 'REC-01',
+          category: 'Framework Migration',
+          title: `Migrate Express.js routes in ${repo} to Next.js 15 App Router Server Actions`,
+          description: `Replace legacy Express middleware and callbacks in ${owner}/${repo} with type-safe Next.js API Handlers and Server Actions.`,
+          impact: 'High',
+          effort: 'Medium',
+        });
+      } else if (detectedDepsNames.some((d) => d.includes('react'))) {
+        dynamicRecommendations.push({
+          id: 'REC-01',
+          category: 'UI Modernization',
+          title: `Refactor React Class/SPA components in ${repo} to React 19 Server Components`,
+          description: `Convert stateful client components in ${owner}/${repo} to Server Components to reduce client JS bundle size by up to 60%.`,
+          impact: 'High',
+          effort: 'Medium',
+        });
+      } else {
+        dynamicRecommendations.push({
+          id: 'REC-01',
+          category: 'Language Modernization',
+          title: `Migrate ${primaryLanguage} codebase in ${repo} to TypeScript 5.4`,
+          description: `Enforce strict type safety and compile-time validation across all source modules in ${owner}/${repo}.`,
+          impact: 'High',
+          effort: 'Medium',
+        });
+      }
+
+      if (detectedDepsNames.some((d) => d.includes('axios') || d.includes('request'))) {
+        dynamicRecommendations.push({
+          id: 'REC-02',
+          category: 'HTTP & Caching',
+          title: 'Replace Axios/Request with Native Fetch & Next Cache',
+          description: `Replace client HTTP wrapper instances in ${repo} with native fetch revalidation routines.`,
+          impact: 'Medium',
+          effort: 'Small',
+        });
+      } else {
+        dynamicRecommendations.push({
+          id: 'REC-02',
+          category: 'Data Validation',
+          title: 'Enforce Runtime Payload Validation with Zod',
+          description: `Introduce Zod schema validation across all external API endpoints in ${owner}/${repo}.`,
+          impact: 'High',
+          effort: 'Small',
+        });
+      }
+    } else if (langLower.includes('python')) {
+      if (detectedDepsNames.some((d) => d.includes('django'))) {
+        dynamicRecommendations.push({
+          id: 'REC-01',
+          category: 'Backend Refactoring',
+          title: `Migrate Django Monolith in ${repo} to FastAPI Async Microservices`,
+          description: `Convert legacy Django ORM and synchronous views in ${owner}/${repo} to high-performance FastAPI async handlers with Pydantic v2.`,
+          impact: 'High',
+          effort: 'High',
+        });
+      } else if (detectedDepsNames.some((d) => d.includes('flask'))) {
+        dynamicRecommendations.push({
+          id: 'REC-01',
+          category: 'Backend Refactoring',
+          title: `Upgrade Flask WSGI routes in ${repo} to FastAPI Async Endpoints`,
+          description: `Replace Flask's synchronous WSGI runner with ASGI FastAPI endpoints for 4x higher request throughput.`,
+          impact: 'High',
+          effort: 'Medium',
+        });
+      } else {
+        dynamicRecommendations.push({
+          id: 'REC-01',
+          category: 'Python Modernization',
+          title: `Upgrade Python codebase in ${repo} to Python 3.12 & Type Hints`,
+          description: `Enforce type annotations and adopt Pydantic v2 models for automatic OpenAPI schema generation.`,
+          impact: 'High',
+          effort: 'Medium',
+        });
+      }
+
+      dynamicRecommendations.push({
+        id: 'REC-02',
+        category: 'Async I/O',
+        title: 'Replace Requests Library with HTTPX Async Client',
+        description: `Eliminate thread blocking in ${repo} by upgrading synchronous HTTP requests to httpx async calls.`,
+        impact: 'Medium',
+        effort: 'Small',
+      });
+    } else if (langLower.includes('java')) {
+      dynamicRecommendations.push(
+        {
+          id: 'REC-01',
+          category: 'Framework Upgrade',
+          title: `Migrate Java Spring Boot in ${repo} to Spring Boot 3.2 & Java 21 Virtual Threads`,
+          description: `Modernize legacy Java controllers in ${owner}/${repo} to Virtual Threads (Project Loom) for high-concurrency performance.`,
+          impact: 'High',
+          effort: 'High',
+        },
+        {
+          id: 'REC-02',
+          category: 'Logging & Security',
+          title: 'Remediate Legacy Log4j / Struts Security Risks',
+          description: `Eliminate critical CVE vulnerability vectors in ${repo} by adopting modern SLF4J / Logback structured logging.`,
+          impact: 'Critical',
+          effort: 'Small',
+        }
+      );
+    } else if (langLower.includes('go')) {
+      dynamicRecommendations.push(
+        {
+          id: 'REC-01',
+          category: 'Go Architecture',
+          title: `Upgrade Go codebase in ${repo} to Go 1.22 Generics & Fiber/Gin`,
+          description: `Refactor legacy interfaces in ${owner}/${repo} using modern Go generics and high-speed routing.`,
+          impact: 'High',
+          effort: 'Medium',
+        },
+        {
+          id: 'REC-02',
+          category: 'Data Access',
+          title: 'Adopt GORM / Ent Type-Safe ORM',
+          description: `Replace raw SQL queries in ${repo} with type-safe query builders.`,
+          impact: 'Medium',
+          effort: 'Medium',
+        }
+      );
+    } else {
+      dynamicRecommendations.push(
+        {
+          id: 'REC-01',
+          category: 'Architecture Modernization',
+          title: `Port ${owner}/${repo} (${primaryLanguage}) to ${selectedTarget}`,
+          description: `Migrate core components in ${repo} to modern serverless and modular structures.`,
+          impact: 'High',
+          effort: 'Medium',
+        },
+        {
+          id: 'REC-02',
+          category: 'Type Safety & Testing',
+          title: 'Enforce End-to-End Type Safety & Zod Validation',
+          description: `Establish strict input validation schemas for all inbound API models in ${owner}/${repo}.`,
+          impact: 'High',
+          effort: 'Small',
+        }
+      );
+    }
+
+    // Dynamic Sample Code Snippets Matching the Repository's Real Language
+    let legacyCodeSnippet = `// LEGACY ${primaryLanguage.toUpperCase()} (${owner}/${repo})
+function handleRequest(data) {
+  // Legacy synchronous handler
+  return database.query("SELECT * FROM items WHERE id = " + data.id);
+}`;
+    let modernCodeSnippet = `// MODERN ${selectedTarget.toUpperCase()}
+import { z } from 'zod';
+
+const itemSchema = z.object({
+  id: z.string().uuid(),
+});
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const validated = itemSchema.parse({ id: searchParams.get('id') });
+  
+  const item = await prisma.item.findUnique({ where: { id: validated.id } });
+  return Response.json(item);
+}`;
+
+    if (langLower.includes('python')) {
+      legacyCodeSnippet = `# LEGACY PYTHON (${owner}/${repo})
+from flask import Flask, request
+app = Flask(__name__)
+
+@app.route('/item', methods=['GET'])
+def get_item():
+    item_id = request.args.get('id')
+    # Unvalidated raw query
+    return db.query(f"SELECT * FROM items WHERE id = {item_id}")`;
+
+      modernCodeSnippet = `# MODERN FASTAPI (PYTHON 3.12)
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, UUID4
+
+app = FastAPI(title="${repo} API")
+
+class ItemQuery(BaseModel):
+    item_id: UUID4
+
+@app.get("/items/{item_id}")
+async def get_item(item_id: UUID4):
+    item = await async_db.fetch_one(item_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return item`;
+    } else if (langLower.includes('java')) {
+      legacyCodeSnippet = `// LEGACY JAVA SPRING (${owner}/${repo})
+@RestController
+public class ItemController {
+    @GetMapping("/item")
+    public Item getItem(@RequestParam String id) {
+        return itemService.findById(id);
+    }
+}`;
+
+      modernCodeSnippet = `// MODERN NEXT.JS 15 (API ROUTE)
+import { NextResponse } from 'next/server';
+import { z } from 'zod';
+
+export async function GET(req: Request) {
+  const id = new URL(req.url).searchParams.get('id');
+  const validatedId = z.string().min(1).parse(id);
+  const item = await prisma.item.findUnique({ where: { id: validatedId } });
+  return NextResponse.json(item);
+}`;
+    }
+
     return NextResponse.json({
       id: `scout-${Date.now()}`,
       repoName: `${owner}/${repo}`,
@@ -276,28 +470,30 @@ export async function POST(request: Request) {
         complexityScore: repoSizeKb > 10000 ? 'Critical' : repoSizeKb > 3000 ? 'High' : 'Medium',
         migrationEffortEstimate: repoSizeKb > 10000 ? '3-4 Weeks' : repoSizeKb > 3000 ? '1-2 Weeks' : '3-5 Days',
         deprecatedDepsCount: outdatedLibs.length,
-        securityVulnerabilitiesCount: securityRisksList.length,
+        securityVulnerabilitiesCount: 2,
       },
       outdatedLibraries: outdatedLibs,
-      securityRisks: securityRisksList,
-      recommendations: [
+      securityRisks: [
         {
-          id: 'REC-01',
-          category: 'Architecture Modernization',
-          title: `Port ${owner}/${repo} to ${selectedTarget}`,
-          description: `Migrate core components in ${repo} to modern serverless and modular structures.`,
-          impact: 'High',
-          effort: 'Medium',
+          id: 'SEC-01',
+          severity: 'High',
+          category: 'Dependency Vulnerability',
+          title: `Outdated ${primaryLanguage} dependencies detected in ${repo}`,
+          description: `Repository ${owner}/${repo} contains dependencies requiring modernization to meet 2026 OWASP guidelines.`,
+          location: `${owner}/${repo}/manifest`,
+          remediation: `Upgrade dependencies to modern release versions and adopt ${selectedTarget}.`,
         },
         {
-          id: 'REC-02',
-          category: 'Type Safety & Testing',
-          title: 'Enforce End-to-End TypeScript Validation',
-          description: 'Establish Zod validation schemas for all inbound API models and payloads.',
-          impact: 'High',
-          effort: 'Small',
+          id: 'SEC-02',
+          severity: 'Medium',
+          category: 'Configuration Security',
+          title: 'Environment Variable Audit Recommended',
+          description: 'Verify secrets and API keys are stored in encrypted environment settings instead of repository files.',
+          location: `${owner}/${repo}/.env`,
+          remediation: 'Inject runtime credentials via Vercel or Render Environment Variables.',
         },
       ],
+      recommendations: dynamicRecommendations,
       migrationPlan: [
         {
           phase: 1,
@@ -314,13 +510,13 @@ export async function POST(request: Request) {
         },
         {
           phase: 2,
-          title: 'Core API & Component Migration',
+          title: `Core ${primaryLanguage} Endpoint Migration`,
           duration: '4-6 Days',
           risk: 'Medium',
           effort: 'Medium',
           description: `Convert legacy ${primaryLanguage} endpoints to modern async handlers.`,
           tasks: [
-            'Port main route handlers and business logic',
+            `Port main route handlers from ${repo} to async functions`,
             'Enforce Zod input validation schemas',
             'Write automated regression unit tests',
           ],
@@ -341,26 +537,9 @@ export async function POST(request: Request) {
       sampleCode: [
         {
           filename: `${repo}-conversion.ts`,
-          language: 'typescript',
-          legacyCode: `// LEGACY ${primaryLanguage.toUpperCase()} (${owner}/${repo})
-// Original legacy implementation pattern from ${repo}
-function processRequest(data) {
-  // Unvalidated input handling
-  return legacyService.handle(data);
-}`,
-          modernCode: `// MODERN ${selectedTarget.toUpperCase()}
-import { z } from 'zod';
-
-const requestSchema = z.object({
-  id: z.string(),
-  payload: z.record(z.unknown()),
-});
-
-export async function POST(req: Request) {
-  const body = await req.json();
-  const validated = requestSchema.parse(body);
-  return Response.json({ status: 'success', data: validated });
-}`,
+          language: primaryLanguage.toLowerCase().includes('python') ? 'python' : 'typescript',
+          legacyCode: legacyCodeSnippet,
+          modernCode: modernCodeSnippet,
           explanation: `Replaces unvalidated legacy ${primaryLanguage} code in ${repo} with type-safe, validated async handlers.`,
         },
       ],
@@ -382,7 +561,6 @@ Automated modern refactor generated by **Migration Scout Agent**.
 - **Repository:** \`${owner}/${repo}\`
 - **Detected Language:** ${primaryLanguage}
 - **Target Architecture:** ${selectedTarget}
-- **Stars / Size:** ${repoStars} ⭐ / ${repoSizeKb} KB
 
 *Generated automatically by Migration Scout Agent v2.0*`,
       },
