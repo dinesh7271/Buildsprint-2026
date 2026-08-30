@@ -1,5 +1,5 @@
 import logging
-from typing import Type, TypeVar, Any, Optional, List
+from typing import Type, TypeVar, Any, Optional
 from pydantic import BaseModel
 from langchain_anthropic import ChatAnthropic
 from langchain_openai import ChatOpenAI
@@ -15,7 +15,8 @@ T = TypeVar("T", bound=BaseModel)
 class RuleBasedFallbackLLM(BaseChatModel):
     """
     Fallback LLM runner used when external LLM API keys (Anthropic/OpenAI)
-    are missing or unconfigured. Prevents workflow crashes while enabling rule-based analysis.
+    are missing, unconfigured, or fail at runtime (e.g., 429 quota exhausted).
+    Prevents workflow crashes while enabling rule-based analysis.
     """
     def _generate(self, messages, stop=None, run_manager=None, **kwargs) -> ChatResult:
         summary_text = (
@@ -109,6 +110,30 @@ class RuleBasedFallbackLLM(BaseChatModel):
 
         return RuleBasedStructuredRunnable(schema)
 
+
+class ResilientStructuredRunnable:
+    """
+    Wraps primary structured LLM runnables with automatic fallback
+    to RuleBasedFallbackLLM if OpenAI/Anthropic fails at runtime with
+    429 Insufficient Quota, Rate Limits, or Network Errors.
+    """
+    def __init__(self, primary_runnable: Any, schema: Type[T]):
+        self.primary_runnable = primary_runnable
+        self.schema = schema
+        self.fallback_runnable = RuleBasedFallbackLLM().with_structured_output(schema)
+
+    def invoke(self, input_messages: Any, **kwargs) -> Any:
+        try:
+            return self.primary_runnable.invoke(input_messages, **kwargs)
+        except Exception as e:
+            schema_name = getattr(self.schema, "__name__", "schema")
+            logger.warning(
+                f"Primary LLM structured invocation failed for {schema_name} (e.g., 429 quota exhausted or rate limit): {e}. "
+                f"Automatically executing RuleBasedFallbackLLM."
+            )
+            return self.fallback_runnable.invoke(input_messages, **kwargs)
+
+
 def get_llm(provider: Optional[str] = None, model: Optional[str] = None) -> BaseChatModel:
     """
     Returns an instance of BaseChatModel based on configured settings.
@@ -166,6 +191,7 @@ def get_llm(provider: Optional[str] = None, model: Optional[str] = None) -> Base
     logger.warning("No LLM API keys configured (ANTHROPIC_API_KEY & OPENAI_API_KEY missing). Operating in Rule-Based Heuristic Mode.")
     return RuleBasedFallbackLLM()
 
+
 def get_structured_llm(
     schema: Type[T],
     provider: Optional[str] = None,
@@ -173,6 +199,15 @@ def get_structured_llm(
 ) -> Any:
     """
     Returns an LLM instance configured to return structured outputs conforming to the schema.
+    Uses ResilientStructuredRunnable to catch runtime 429 / Quota / Connection errors gracefully.
     """
     llm = get_llm(provider, model)
-    return llm.with_structured_output(schema)
+    if isinstance(llm, RuleBasedFallbackLLM):
+        return llm.with_structured_output(schema)
+
+    try:
+        primary_structured = llm.with_structured_output(schema)
+        return ResilientStructuredRunnable(primary_structured, schema)
+    except Exception as e:
+        logger.warning(f"Could not bind structured output to primary LLM: {e}. Using fallback.")
+        return RuleBasedFallbackLLM().with_structured_output(schema)
