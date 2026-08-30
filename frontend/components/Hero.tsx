@@ -30,10 +30,10 @@ export function Hero() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 50, damping: 20, delay: 0.2 }}
-        className="text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground mb-6 max-w-4xl mx-auto leading-[1.12]"
+        className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-100 mb-6 max-w-4xl mx-auto leading-[1.12]"
       >
-        Modernize <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 via-teal-700 to-emerald-600 font-black">Legacy Codebases</span> At{' '}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-700 via-emerald-600 to-cyan-600 font-black">Autonomous Speed</span>
+        Modernize <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 font-black">Legacy Codebases</span> At{' '}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 font-black">Autonomous Speed</span>
       </motion.h1>
 
       {/* Subtitle */}
@@ -71,11 +71,11 @@ export function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border font-mono text-xs p-4 bg-card">
           {/* Legacy side */}
           <div className="space-y-2 pr-0 md:pr-4 pb-4 md:pb-0">
-            <div className="text-[10px] text-rose-700 font-bold uppercase tracking-wider flex items-center justify-between">
+            <div className="text-[10px] text-rose-400 font-bold uppercase tracking-wider flex items-center justify-between">
               <span>Legacy React 15 Component</span>
-              <span className="px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-700">Deprecated</span>
+              <span className="px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">Deprecated</span>
             </div>
-            <pre className="text-[11px] text-muted-foreground overflow-x-auto leading-relaxed p-3 rounded-lg bg-background/80 border border-border">
+            <pre className="text-[11px] text-rose-200/90 overflow-x-auto leading-relaxed p-3 rounded-lg bg-slate-950/60 border border-border">
 {`// Old class component pattern
 var React = require('react');
 var UserList = React.createClass({
@@ -91,11 +91,11 @@ var UserList = React.createClass({
 
           {/* Modernized side */}
           <div className="space-y-2 pl-0 md:pl-4 pt-4 md:pt-0">
-            <div className="text-[10px] text-emerald-700 font-bold uppercase tracking-wider flex items-center justify-between">
+            <div className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center justify-between">
               <span>Next.js 15 Server Component</span>
-              <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-700">Modernized</span>
+              <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Modernized</span>
             </div>
-            <pre className="text-[11px] text-foreground overflow-x-auto leading-relaxed p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
+            <pre className="text-[11px] text-cyan-200 overflow-x-auto leading-relaxed p-3 rounded-lg bg-slate-950/60 border border-emerald-500/30">
 {`// Modern React 19 Server Component
 import { use } from 'react';
 

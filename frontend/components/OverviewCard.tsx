@@ -23,13 +23,13 @@ export function OverviewCard({ data }: OverviewCardProps) {
   const getComplexityBadge = (score?: string) => {
     switch (score) {
       case 'Low':
-        return <Badge className="bg-emerald-600/10 text-emerald-800 border-emerald-600/30 font-mono text-[10px] uppercase font-bold tracking-wider">Low Complexity</Badge>;
+        return <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 font-mono text-[10px] uppercase font-bold tracking-wider">Low Complexity</Badge>;
       case 'Medium':
-        return <Badge className="bg-amber-600/10 text-amber-800 border-amber-600/30 font-mono text-[10px] uppercase font-bold tracking-wider">Medium Complexity</Badge>;
+        return <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/30 font-mono text-[10px] uppercase font-bold tracking-wider">Medium Complexity</Badge>;
       case 'High':
-        return <Badge className="bg-rose-600/10 text-rose-800 border-rose-600/30 font-mono text-[10px] uppercase font-bold tracking-wider">High Complexity</Badge>;
+        return <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/30 font-mono text-[10px] uppercase font-bold tracking-wider">High Complexity</Badge>;
       case 'Critical':
-        return <Badge className="bg-rose-700/10 text-rose-900 border-rose-700/30 font-mono text-[10px] uppercase font-bold tracking-wider">Critical Complexity</Badge>;
+        return <Badge className="bg-rose-600/20 text-rose-300 border-rose-600/40 font-mono text-[10px] uppercase font-bold tracking-wider">Critical Complexity</Badge>;
       default:
         return <Badge variant="outline">Unknown</Badge>;
     }
@@ -66,9 +66,9 @@ export function OverviewCard({ data }: OverviewCardProps) {
             <div className="md:col-span-5 p-4.5 rounded-xl bg-secondary/40 border border-border relative group">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                  <Server className="w-3.5 h-3.5 text-rose-700" /> Legacy Environment
+                  <Server className="w-3.5 h-3.5 text-rose-400" /> Legacy Environment
                 </span>
-                <Badge className="bg-rose-600/10 text-rose-800 border-rose-600/20 text-[9px] font-mono font-bold uppercase tracking-wider">Current</Badge>
+                <Badge className="bg-rose-500/10 text-rose-400 border-rose-500/20 text-[9px] font-mono font-bold uppercase tracking-wider">Current</Badge>
               </div>
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex justify-between text-foreground">
@@ -99,14 +99,14 @@ export function OverviewCard({ data }: OverviewCardProps) {
             <div className="md:col-span-5 p-4.5 rounded-xl bg-secondary/40 border border-border relative group">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-emerald-600" /> Recommended Stack
+                  <Zap className="w-3.5 h-3.5 text-emerald-400" /> Recommended Stack
                 </span>
-                <Badge className="bg-emerald-600/10 text-emerald-800 border-emerald-600/20 text-[9px] font-mono font-bold uppercase tracking-wider">Target</Badge>
+                <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[9px] font-mono font-bold uppercase tracking-wider">Target</Badge>
               </div>
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex justify-between text-foreground">
                   <span className="text-muted-foreground">Language:</span>
-                  <span className="font-bold text-emerald-800">{recommendedStack?.language || 'Modern JS/TS'}</span>
+                  <span className="font-bold text-emerald-400">{recommendedStack?.language || 'Modern JS/TS'}</span>
                 </div>
                 <div className="flex justify-between text-foreground">
                   <span className="text-muted-foreground">Framework:</span>
