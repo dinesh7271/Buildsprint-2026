@@ -49,72 +49,72 @@
 }
 
 :root {
-  --background: #1e2640; /* Cool, elegant semi-dark slate backdrop */
-  --foreground: #f8fafc; /* Crisp canvas header text */
-  --card: rgba(255, 255, 255, 0.88); /* Bright frosted glass card surface */
-  --card-foreground: #0f172a; /* Deep rich navy text inside cards for high legibility */
-  --popover: rgba(255, 255, 255, 0.95);
-  --popover-foreground: #0f172a;
-  --primary: #0d9488; /* Vibrant, refreshing emerald/teal primary */
-  --primary-foreground: #ffffff;
-  --secondary: rgba(230, 238, 248, 0.65); /* Translucent light container */
-  --secondary-foreground: #0f172a;
-  --muted: rgba(225, 235, 245, 0.5);
-  --muted-foreground: #475569; /* Cool slate muted text */
-  --accent: rgba(210, 225, 240, 0.6);
-  --accent-foreground: #0f172a;
-  --destructive: #dc2626;
-  --border: rgba(255, 255, 255, 0.25); /* Glowing glass border */
-  --input: rgba(255, 255, 255, 0.7);
-  --ring: rgba(13, 148, 136, 0.35);
-  --chart-1: #0d9488;
-  --chart-2: #0284c7;
-  --chart-3: #7c3aed;
-  --chart-4: #e11d48;
-  --chart-5: #d97706;
+  --background: #080d1a; /* Cyberpunk obsidian void backdrop */
+  --foreground: #f8fafc; /* Crisp razor-sharp white text */
+  --card: rgba(13, 20, 36, 0.75); /* Obsidian glassmorphic card with neon glow */
+  --card-foreground: #f8fafc;
+  --popover: rgba(13, 20, 36, 0.9);
+  --popover-foreground: #f8fafc;
+  --primary: #00f2fe; /* Electric Cyberpunk Cyan */
+  --primary-foreground: #080d1a;
+  --secondary: rgba(22, 33, 56, 0.6); /* Cyber dark secondary panel */
+  --secondary-foreground: #f8fafc;
+  --muted: rgba(22, 33, 56, 0.5);
+  --muted-foreground: #94a3b8;
+  --accent: rgba(30, 48, 80, 0.6);
+  --accent-foreground: #f8fafc;
+  --destructive: #ff0055; /* Cyber Neon Magenta/Rose */
+  --border: rgba(0, 242, 254, 0.2); /* Neon glowing cyan border */
+  --input: rgba(22, 33, 56, 0.6);
+  --ring: rgba(0, 242, 254, 0.4);
+  --chart-1: #00f2fe;
+  --chart-2: #00ff87;
+  --chart-3: #a855f7;
+  --chart-4: #ff0055;
+  --chart-5: #ffb703;
   --radius: 1rem;
-  --sidebar: rgba(255, 255, 255, 0.88);
-  --sidebar-foreground: #0f172a;
-  --sidebar-primary: #0d9488;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(230, 238, 248, 0.65);
-  --sidebar-accent-foreground: #0f172a;
-  --sidebar-border: rgba(255, 255, 255, 0.25);
-  --sidebar-ring: rgba(13, 148, 136, 0.35);
+  --sidebar: rgba(13, 20, 36, 0.75);
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #00f2fe;
+  --sidebar-primary-foreground: #080d1a;
+  --sidebar-accent: rgba(22, 33, 56, 0.6);
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: rgba(0, 242, 254, 0.2);
+  --sidebar-ring: rgba(0, 242, 254, 0.4);
 }
 
 .dark {
-  --background: #1e2640;
+  --background: #080d1a;
   --foreground: #f8fafc;
-  --card: rgba(255, 255, 255, 0.88);
-  --card-foreground: #0f172a;
-  --popover: rgba(255, 255, 255, 0.95);
-  --popover-foreground: #0f172a;
-  --primary: #0d9488;
-  --primary-foreground: #ffffff;
-  --secondary: rgba(230, 238, 248, 0.65);
-  --secondary-foreground: #0f172a;
-  --muted: rgba(225, 235, 245, 0.5);
-  --muted-foreground: #475569;
-  --accent: rgba(210, 225, 240, 0.6);
-  --accent-foreground: #0f172a;
-  --destructive: #dc2626;
-  --border: rgba(255, 255, 255, 0.25);
-  --input: rgba(255, 255, 255, 0.7);
-  --ring: rgba(13, 148, 136, 0.35);
-  --chart-1: #0d9488;
-  --chart-2: #0284c7;
-  --chart-3: #7c3aed;
-  --chart-4: #e11d48;
-  --chart-5: #d97706;
-  --sidebar: rgba(255, 255, 255, 0.88);
-  --sidebar-foreground: #0f172a;
-  --sidebar-primary: #0d9488;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(230, 238, 248, 0.65);
-  --sidebar-accent-foreground: #0f172a;
-  --sidebar-border: rgba(255, 255, 255, 0.25);
-  --sidebar-ring: rgba(13, 148, 136, 0.35);
+  --card: rgba(13, 20, 36, 0.75);
+  --card-foreground: #f8fafc;
+  --popover: rgba(13, 20, 36, 0.9);
+  --popover-foreground: #f8fafc;
+  --primary: #00f2fe;
+  --primary-foreground: #080d1a;
+  --secondary: rgba(22, 33, 56, 0.6);
+  --secondary-foreground: #f8fafc;
+  --muted: rgba(22, 33, 56, 0.5);
+  --muted-foreground: #94a3b8;
+  --accent: rgba(30, 48, 80, 0.6);
+  --accent-foreground: #f8fafc;
+  --destructive: #ff0055;
+  --border: rgba(0, 242, 254, 0.2);
+  --input: rgba(22, 33, 56, 0.6);
+  --ring: rgba(0, 242, 254, 0.4);
+  --chart-1: #00f2fe;
+  --chart-2: #00ff87;
+  --chart-3: #a855f7;
+  --chart-4: #ff0055;
+  --chart-5: #ffb703;
+  --sidebar: rgba(13, 20, 36, 0.75);
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #00f2fe;
+  --sidebar-primary-foreground: #080d1a;
+  --sidebar-accent: rgba(22, 33, 56, 0.6);
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: rgba(0, 242, 254, 0.2);
+  --sidebar-ring: rgba(0, 242, 254, 0.4);
 }
 
 @layer base {
@@ -127,10 +127,10 @@
   html {
     @apply font-sans;
   }
-  /* Global Glassmorphic Frosted Glass Filter */
+  /* Cyberpunk Glassmorphic Frosted Glass Filter */
   [class*="bg-card"], [class*="bg-secondary"] {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 }
 

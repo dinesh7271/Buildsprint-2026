@@ -60,10 +60,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans relative overflow-x-hidden selection:bg-primary/20 selection:text-primary">
-      {/* Animated Soft Ambient Background Glows */}
-      <div className="fixed top-[-100px] left-[10%] w-[700px] h-[700px] bg-sky-500/20 rounded-full blur-[170px] pointer-events-none animate-float-slow" />
-      <div className="fixed bottom-[-100px] right-[10%] w-[650px] h-[650px] bg-emerald-500/20 rounded-full blur-[170px] pointer-events-none animate-float-reverse" />
-      <div className="fixed top-[35%] left-[35%] w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[150px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
+      {/* Animated Soft Cyberpunk Background Glows */}
+      <div className="fixed top-[-100px] left-[10%] w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[170px] pointer-events-none animate-float-slow" />
+      <div className="fixed bottom-[-100px] right-[10%] w-[650px] h-[650px] bg-purple-600/20 rounded-full blur-[170px] pointer-events-none animate-float-reverse" />
+      <div className="fixed top-[35%] left-[35%] w-[500px] h-[500px] bg-emerald-500/15 rounded-full blur-[150px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
 
       {/* Rich Animated Codebase AST Graph & Circuit SVG Background Overlay */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-40">
