@@ -435,7 +435,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-border bg-card/80 backdrop-blur-sm py-6 relative z-10 text-center text-xs text-muted-foreground font-mono mt-auto">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div>Migration Scout Agent • Professional Landing Page & Workbench</div>
+          <div>Built by Team Sprint Latte • Migration Scout Agent</div>
           <div className="flex items-center gap-4 text-[10px] text-muted-foreground/80 uppercase tracking-wider font-bold">
             <span>Next.js 15</span>
             <span>TypeScript</span>
