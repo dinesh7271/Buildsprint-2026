@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: migration-scout-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PRIMARY_LLM_PROVIDER
+        value: anthropic
+      - key: PRIMARY_LLM_MODEL
+        value: claude-3-5-sonnet-20240620
+      - key: FALLBACK_LLM_PROVIDER
+        value: openai
+      - key: FALLBACK_LLM_MODEL
+        value: gpt-4o-mini
+      - key: CLONE_DIR
+        value: /tmp/migration-scout-clones
