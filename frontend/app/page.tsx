@@ -61,14 +61,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans relative overflow-x-hidden selection:bg-primary/20 selection:text-primary">
       {/* Animated Soft Ambient Background Glows */}
-      <div className="fixed top-[-100px] left-[10%] w-[650px] h-[650px] bg-emerald-600/10 rounded-full blur-[160px] pointer-events-none animate-float-slow" />
-      <div className="fixed bottom-[-100px] right-[10%] w-[600px] h-[600px] bg-teal-600/10 rounded-full blur-[160px] pointer-events-none animate-float-reverse" />
-      <div className="fixed top-[40%] left-[40%] w-[450px] h-[450px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
+      <div className="fixed top-[-100px] left-[10%] w-[700px] h-[700px] bg-sky-500/20 rounded-full blur-[170px] pointer-events-none animate-float-slow" />
+      <div className="fixed bottom-[-100px] right-[10%] w-[650px] h-[650px] bg-emerald-500/20 rounded-full blur-[170px] pointer-events-none animate-float-reverse" />
+      <div className="fixed top-[35%] left-[35%] w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[150px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
 
       {/* Rich Animated Codebase AST Graph & Circuit SVG Background Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-40">
         {/* Floating Animated AST Tree Graph Vector 1 */}
-        <div className="absolute top-[12%] left-[2%] w-[420px] h-[420px] animate-float-slow text-primary/20">
+        <div className="absolute top-[12%] left-[2%] w-[450px] h-[450px] animate-float-slow text-primary/30">
           <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
             <circle cx="100" cy="40" r="8" fill="currentColor" />
             <circle cx="50" cy="100" r="6" fill="currentColor" />
