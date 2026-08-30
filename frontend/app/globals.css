@@ -49,72 +49,72 @@
 }
 
 :root {
-  --background: #080d1a; /* Cyberpunk obsidian void backdrop */
-  --foreground: #f8fafc; /* Crisp razor-sharp white text */
-  --card: rgba(13, 20, 36, 0.75); /* Obsidian glassmorphic card with neon glow */
+  --background: #080d1a;
+  --foreground: #f8fafc;
+  --card: rgba(13, 20, 36, 0.35); /* Ultra-transparent glass card surface */
   --card-foreground: #f8fafc;
-  --popover: rgba(13, 20, 36, 0.9);
+  --popover: rgba(13, 20, 36, 0.5);
   --popover-foreground: #f8fafc;
-  --primary: #00f2fe; /* Electric Cyberpunk Cyan */
+  --primary: #00f2fe;
   --primary-foreground: #080d1a;
-  --secondary: rgba(22, 33, 56, 0.6); /* Cyber dark secondary panel */
+  --secondary: rgba(22, 33, 56, 0.25); /* Ultra-transparent secondary container */
   --secondary-foreground: #f8fafc;
-  --muted: rgba(22, 33, 56, 0.5);
+  --muted: rgba(22, 33, 56, 0.2);
   --muted-foreground: #94a3b8;
-  --accent: rgba(30, 48, 80, 0.6);
+  --accent: rgba(30, 48, 80, 0.3);
   --accent-foreground: #f8fafc;
-  --destructive: #ff0055; /* Cyber Neon Magenta/Rose */
-  --border: rgba(0, 242, 254, 0.2); /* Neon glowing cyan border */
-  --input: rgba(22, 33, 56, 0.6);
-  --ring: rgba(0, 242, 254, 0.4);
+  --destructive: #ff0055;
+  --border: rgba(0, 242, 254, 0.25); /* Crisp glowing cyan glass border */
+  --input: rgba(22, 33, 56, 0.3);
+  --ring: rgba(0, 242, 254, 0.45);
   --chart-1: #00f2fe;
   --chart-2: #00ff87;
   --chart-3: #a855f7;
   --chart-4: #ff0055;
   --chart-5: #ffb703;
   --radius: 1rem;
-  --sidebar: rgba(13, 20, 36, 0.75);
+  --sidebar: rgba(13, 20, 36, 0.35);
   --sidebar-foreground: #f8fafc;
   --sidebar-primary: #00f2fe;
   --sidebar-primary-foreground: #080d1a;
-  --sidebar-accent: rgba(22, 33, 56, 0.6);
+  --sidebar-accent: rgba(22, 33, 56, 0.25);
   --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgba(0, 242, 254, 0.2);
-  --sidebar-ring: rgba(0, 242, 254, 0.4);
+  --sidebar-border: rgba(0, 242, 254, 0.25);
+  --sidebar-ring: rgba(0, 242, 254, 0.45);
 }
 
 .dark {
   --background: #080d1a;
   --foreground: #f8fafc;
-  --card: rgba(13, 20, 36, 0.75);
+  --card: rgba(13, 20, 36, 0.35);
   --card-foreground: #f8fafc;
-  --popover: rgba(13, 20, 36, 0.9);
+  --popover: rgba(13, 20, 36, 0.5);
   --popover-foreground: #f8fafc;
   --primary: #00f2fe;
   --primary-foreground: #080d1a;
-  --secondary: rgba(22, 33, 56, 0.6);
+  --secondary: rgba(22, 33, 56, 0.25);
   --secondary-foreground: #f8fafc;
-  --muted: rgba(22, 33, 56, 0.5);
+  --muted: rgba(22, 33, 56, 0.2);
   --muted-foreground: #94a3b8;
-  --accent: rgba(30, 48, 80, 0.6);
+  --accent: rgba(30, 48, 80, 0.3);
   --accent-foreground: #f8fafc;
   --destructive: #ff0055;
-  --border: rgba(0, 242, 254, 0.2);
-  --input: rgba(22, 33, 56, 0.6);
-  --ring: rgba(0, 242, 254, 0.4);
+  --border: rgba(0, 242, 254, 0.25);
+  --input: rgba(22, 33, 56, 0.3);
+  --ring: rgba(0, 242, 254, 0.45);
   --chart-1: #00f2fe;
   --chart-2: #00ff87;
   --chart-3: #a855f7;
   --chart-4: #ff0055;
   --chart-5: #ffb703;
-  --sidebar: rgba(13, 20, 36, 0.75);
+  --sidebar: rgba(13, 20, 36, 0.35);
   --sidebar-foreground: #f8fafc;
   --sidebar-primary: #00f2fe;
   --sidebar-primary-foreground: #080d1a;
-  --sidebar-accent: rgba(22, 33, 56, 0.6);
+  --sidebar-accent: rgba(22, 33, 56, 0.25);
   --sidebar-accent-foreground: #f8fafc;
-  --sidebar-border: rgba(0, 242, 254, 0.2);
-  --sidebar-ring: rgba(0, 242, 254, 0.4);
+  --sidebar-border: rgba(0, 242, 254, 0.25);
+  --sidebar-ring: rgba(0, 242, 254, 0.45);
 }
 
 @layer base {
@@ -127,10 +127,10 @@
   html {
     @apply font-sans;
   }
-  /* Cyberpunk Glassmorphic Frosted Glass Filter */
-  [class*="bg-card"], [class*="bg-secondary"] {
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+  /* Ultra-Glassmorphic Heavy Frosted Blur */
+  [class*="bg-card"], [class*="bg-secondary"], header, aside {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
   }
 }
 
