@@ -57,31 +57,31 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary flex flex-col font-sans relative overflow-x-hidden">
       {/* Background Soft Glows for Landing Page Style */}
-      <div className="absolute top-[20%] left-[-10%] w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[150px] pointer-events-none animate-pulse" style={{ animationDuration: '8s' }} />
-      <div className="absolute top-[50%] right-[-10%] w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[130px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
-      <div className="absolute bottom-[10%] left-[20%] w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDuration: '12s' }} />
+      <div className="absolute top-[20%] left-[-10%] w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-[150px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
+      <div className="absolute top-[50%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse" style={{ animationDuration: '12s' }} />
+      <div className="absolute bottom-[10%] left-[20%] w-[400px] h-[400px] bg-sky-500/10 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDuration: '15s' }} />
 
       {/* Background Grid Pattern */}
       <div 
-        className="fixed inset-0 pointer-events-none opacity-[0.012] z-0" 
+         className="fixed inset-0 pointer-events-none opacity-[0.25] z-0" 
         style={{
-          backgroundImage: `radial-gradient(circle, #cbd5e1 1px, transparent 1px)`,
-          backgroundSize: '32px 32px',
+          backgroundImage: `radial-gradient(circle, var(--primary) 0.75px, transparent 0.75px)`,
+          backgroundSize: '36px 36px',
         }}
       />
 
       {/* Header / Navbar */}
-      <header className="border-b border-slate-900 bg-slate-950/40 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50 shadow-sm shadow-border/5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5 cursor-pointer" onClick={handleReset}>
-            <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-black shadow-lg shadow-cyan-500/5">
+            <div className="p-2 rounded-lg bg-primary/10 text-primary border border-primary/20 font-black shadow-lg shadow-primary/5">
               <Terminal className="w-4 h-4" />
             </div>
             <div>
-              <span className="font-extrabold text-base tracking-tight text-white font-mono">
-                Migration<span className="text-cyan-400">Scout</span>
+              <span className="font-extrabold text-base tracking-tight text-foreground font-mono">
+                Migration<span className="text-primary font-black">Scout</span>
               </span>
-              <span className="text-[10px] font-mono text-slate-500 block -mt-1 uppercase tracking-wider font-bold">Suite v2.0</span>
+              <span className="text-[10px] font-mono text-muted-foreground block -mt-1 uppercase tracking-wider font-bold">Suite v2.0</span>
             </div>
           </div>
 
@@ -90,15 +90,15 @@ export default function Home() {
               href="https://github.com"
               target="_blank"
               rel="noreferrer"
-              className="text-xs font-mono text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-1.5"
+              className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors flex items-center gap-1.5"
             >
               <GitFork className="w-3.5 h-3.5" />
               <span>GitHub</span>
             </a>
-            <div className="h-4 w-px bg-slate-900" />
-            <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-slate-900/50 border border-slate-900 text-slate-300 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Agent Ready
+            <div className="h-4 w-px bg-border" />
+            <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-secondary border border-border text-foreground flex items-center gap-1.5 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Agent Active
             </span>
           </div>
         </div>
@@ -137,10 +137,10 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 py-6 relative z-10 text-center text-xs text-slate-500 font-mono">
+      <footer className="border-t border-border bg-card/60 backdrop-blur-sm py-6 relative z-10 text-center text-xs text-muted-foreground font-mono">
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div>Legacy → Modern Migration Scout Agent • Phase 2 Complete Report UI</div>
-          <div className="flex items-center gap-4 text-[10px] text-slate-600 uppercase tracking-wider font-bold">
+          <div>Legacy → Modern Migration Scout Agent • Relaxing Light Theme UI</div>
+          <div className="flex items-center gap-4 text-[10px] text-muted-foreground/80 uppercase tracking-wider font-bold">
             <span>Next.js 15 (App Router)</span>
             <span>TypeScript</span>
             <span>Tailwind CSS</span>

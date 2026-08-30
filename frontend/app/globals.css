@@ -49,38 +49,38 @@
 }
 
 :root {
-  --background: oklch(0.93 0.015 220); /* Light teal-gray, very relaxing */
-  --foreground: oklch(0.18 0.015 220);
-  --card: oklch(0.96 0.01 220 / 80%);
-  --card-foreground: oklch(0.18 0.015 220);
-  --popover: oklch(0.96 0.01 220);
-  --popover-foreground: oklch(0.18 0.015 220);
-  --primary: oklch(0.45 0.11 190); /* Muted, beautiful teal */
-  --primary-foreground: oklch(0.98 0.01 220);
-  --secondary: oklch(0.88 0.015 220 / 60%);
-  --secondary-foreground: oklch(0.18 0.015 220);
-  --muted: oklch(0.88 0.015 220 / 40%);
-  --muted-foreground: oklch(0.45 0.01 220);
-  --accent: oklch(0.86 0.015 220 / 30%);
-  --accent-foreground: oklch(0.18 0.015 220);
-  --destructive: oklch(0.62 0.15 25);
-  --border: oklch(0.8 0.015 220 / 40%);
-  --input: oklch(0.88 0.015 220 / 50%);
-  --ring: oklch(0.45 0.11 190 / 30%);
-  --chart-1: oklch(0.45 0.11 190);
-  --chart-2: oklch(0.5 0.09 250);
-  --chart-3: oklch(0.48 0.1 140);
+  --background: oklch(0.96 0.012 180); /* Perfect chill pale-mint/teal garden background */
+  --foreground: oklch(0.24 0.02 180);
+  --card: oklch(0.98 0.006 180 / 90%);
+  --card-foreground: oklch(0.24 0.02 180);
+  --popover: oklch(0.98 0.006 180);
+  --popover-foreground: oklch(0.24 0.02 180);
+  --primary: oklch(0.55 0.12 175); /* Refreshing, elegant mint/teal primary */
+  --primary-foreground: oklch(0.99 0.004 180);
+  --secondary: oklch(0.92 0.015 175 / 50%);
+  --secondary-foreground: oklch(0.24 0.02 180);
+  --muted: oklch(0.92 0.01 180 / 40%);
+  --muted-foreground: oklch(0.48 0.02 180);
+  --accent: oklch(0.88 0.03 175 / 45%);
+  --accent-foreground: oklch(0.22 0.03 175);
+  --destructive: oklch(0.60 0.14 25);
+  --border: oklch(0.85 0.015 180 / 70%);
+  --input: oklch(0.90 0.015 180 / 60%);
+  --ring: oklch(0.55 0.12 175 / 25%);
+  --chart-1: oklch(0.55 0.12 175);
+  --chart-2: oklch(0.62 0.10 220);
+  --chart-3: oklch(0.58 0.11 140);
   --chart-4: oklch(0.52 0.12 40);
   --chart-5: oklch(0.45 0.12 0);
-  --radius: 0.875rem; /* Relaxing smooth rounded corners */
-  --sidebar: oklch(0.96 0.01 220);
-  --sidebar-foreground: oklch(0.18 0.015 220);
-  --sidebar-primary: oklch(0.45 0.11 190);
-  --sidebar-primary-foreground: oklch(0.98 0.01 220);
-  --sidebar-accent: oklch(0.88 0.015 220);
-  --sidebar-accent-foreground: oklch(0.18 0.015 220);
-  --sidebar-border: oklch(0.8 0.015 220 / 40%);
-  --sidebar-ring: oklch(0.45 0.11 190 / 30%);
+  --radius: 1rem; /* Extra smooth relaxing rounded corners */
+  --sidebar: oklch(0.98 0.006 180);
+  --sidebar-foreground: oklch(0.24 0.02 180);
+  --sidebar-primary: oklch(0.55 0.12 175);
+  --sidebar-primary-foreground: oklch(0.99 0.004 180);
+  --sidebar-accent: oklch(0.92 0.015 175);
+  --sidebar-accent-foreground: oklch(0.24 0.02 180);
+  --sidebar-border: oklch(0.85 0.015 180 / 70%);
+  --sidebar-ring: oklch(0.55 0.12 175 / 25%);
 }
 
 .dark {
