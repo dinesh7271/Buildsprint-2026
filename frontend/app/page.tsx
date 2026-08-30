@@ -64,6 +64,47 @@ export default function Home() {
       <div className="fixed bottom-[-100px] right-[10%] w-[600px] h-[600px] bg-teal-600/10 rounded-full blur-[160px] pointer-events-none animate-float-reverse" />
       <div className="fixed top-[40%] left-[40%] w-[450px] h-[450px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
 
+      {/* Rich Animated Codebase AST Graph & Circuit SVG Background Overlay */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+        {/* Floating Animated AST Tree Graph Vector 1 */}
+        <div className="absolute top-[12%] left-[2%] w-[420px] h-[420px] animate-float-slow text-primary/20">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            <circle cx="100" cy="40" r="8" fill="currentColor" />
+            <circle cx="50" cy="100" r="6" fill="currentColor" />
+            <circle cx="150" cy="100" r="6" fill="currentColor" />
+            <circle cx="30" cy="160" r="5" fill="currentColor" />
+            <circle cx="80" cy="160" r="5" fill="currentColor" />
+            <circle cx="120" cy="160" r="5" fill="currentColor" />
+            <circle cx="170" cy="160" r="5" fill="currentColor" />
+            <path d="M100 48L50 94M100 48L150 94M50 106L30 155M50 106L80 155M150 106L120 155M150 106L170 155" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" />
+          </svg>
+        </div>
+
+        {/* Floating Animated Circuit Mesh Vector 2 */}
+        <div className="absolute bottom-[10%] right-[3%] w-[500px] h-[500px] animate-float-reverse text-teal-600/20">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            <rect x="20" y="20" width="160" height="160" rx="16" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 6" />
+            <circle cx="60" cy="60" r="10" fill="currentColor" />
+            <circle cx="140" cy="60" r="10" fill="currentColor" />
+            <circle cx="100" cy="140" r="12" fill="currentColor" />
+            <path d="M60 70V110H100M140 70V110H100M100 110V128" stroke="currentColor" strokeWidth="2" />
+          </svg>
+        </div>
+
+        {/* Floating Matrix Code Snippet Vector Card 3 */}
+        <div className="absolute top-[45%] right-[5%] w-[320px] h-[200px] rounded-2xl border border-primary/15 bg-card/10 backdrop-blur-3xl p-4 font-mono text-[10px] text-primary/40 shadow-2xl animate-pulse" style={{ animationDuration: '8s' }}>
+          <div className="flex items-center gap-1.5 mb-2 text-primary/60 font-bold">
+            <Code2 className="w-3.5 h-3.5" /> AST_PARSE_ENGINE.TS
+          </div>
+          <div className="space-y-1">
+            <p>import &#123; parseAST &#125; from &apos;@scout/core&apos;;</p>
+            <p className="text-emerald-700/60 font-bold">&gt; scanning tree nodes...</p>
+            <p>const targetStack = &apos;Next.js 15&apos;;</p>
+            <p>return transform(legacyComponent);</p>
+          </div>
+        </div>
+      </div>
+
       {/* Grid Canvas Overlay */}
       <div 
         className="fixed inset-0 pointer-events-none opacity-[0.25] z-0" 
@@ -150,90 +191,104 @@ export default function Home() {
       {/* Main SaaS Layout Shell */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col lg:flex-row items-start gap-8 relative z-10">
         
-        {/* Left Sidebar Control Dashboard Panel */}
-        <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-20 lg:self-start flex flex-col gap-6">
-          <div className="p-5 rounded-2xl border border-border bg-card shadow-sm space-y-6">
+        {/* Left Sidebar Mission Control Panel */}
+        <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-20 lg:self-start flex flex-col gap-5">
+          {/* Main Control Card */}
+          <div className="p-5 rounded-3xl border border-border bg-card/95 backdrop-blur-xl shadow-lg space-y-6">
             
-            {/* Sidebar Title */}
-            <div>
-              <div className="text-[10px] font-bold font-mono text-muted-foreground uppercase tracking-wider">AGENT CONTROL PANEL</div>
-              <h2 className="text-sm font-bold font-mono text-foreground mt-0.5">Scout Suite v2.0</h2>
+            {/* Header Status Widget */}
+            <div className="flex items-center justify-between pb-2 border-b border-border">
+              <div className="flex items-center gap-2.5">
+                <div className="relative flex items-center justify-center">
+                  <span className="w-3 h-3 rounded-full bg-emerald-500 animate-ping absolute" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 relative z-10" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold font-mono text-foreground uppercase tracking-wider">Scout Core Agent</h3>
+                  <span className="text-[10px] font-mono text-emerald-800 font-bold block -mt-0.5">AST Telemetry Active</span>
+                </div>
+              </div>
+              <Badge variant="outline" className="text-[9px] font-mono border-primary/30 text-primary bg-primary/10">
+                v2.0
+              </Badge>
             </div>
 
             {/* Sidebar Navigation */}
             <nav className="flex flex-col gap-1.5 font-mono text-xs font-bold">
               <button
                 onClick={() => { setActiveTab('overview'); if (viewState === 'success') handleReset(); }}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'overview'
-                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
                     : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-3">
                   <Layout className="w-4 h-4" />
                   <span>Landing Overview</span>
                 </div>
-                {activeTab === 'overview' && <span className="w-1.5 h-1.5 rounded-full bg-primary-foreground animate-ping" />}
+                {activeTab === 'overview' && <span className="w-2 h-2 rounded-full bg-primary-foreground" />}
               </button>
 
               <button
                 onClick={() => setActiveTab('workbench')}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'workbench'
-                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
                     : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <Terminal className="w-4 h-4" />
+                <div className="flex items-center gap-3">
+                  <Radar className="w-4 h-4" />
                   <span>Scanner Workbench</span>
                 </div>
-                {viewState === 'success' && <span className="px-1.5 py-0.5 text-[9px] rounded bg-emerald-500/20 text-emerald-800">Result Ready</span>}
+                {viewState === 'success' && <span className="px-2 py-0.5 text-[9px] rounded-full bg-emerald-500/20 text-emerald-800 font-bold border border-emerald-500/30">Ready</span>}
               </button>
 
               <button
                 onClick={() => setActiveTab('presets')}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'presets'
-                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
                     : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <Compass className="w-4 h-4" />
-                  <span>Architecture Stacks</span>
+                <div className="flex items-center gap-3">
+                  <Layers className="w-4 h-4" />
+                  <span>Target Architectures</span>
                 </div>
               </button>
 
               <button
                 onClick={() => setActiveTab('guide')}
-                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all cursor-pointer ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all cursor-pointer ${
                   activeTab === 'guide'
-                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-[1.02]'
                     : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-3">
                   <HelpCircle className="w-4 h-4" />
-                  <span>Docs & Guidelines</span>
+                  <span>Scanner Docs</span>
                 </div>
               </button>
             </nav>
 
-            <div className="h-px bg-border" />
+            {/* Real-time Telemetry Dashboard */}
+            <div className="p-4 rounded-2xl bg-secondary/60 border border-border space-y-3 font-mono text-xs">
+              <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center justify-between">
+                <span>Agent Telemetry</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+              </div>
 
-            {/* Real-time System Metrics Widget */}
-            <div className="space-y-3 font-mono text-xs">
-              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">LIVE ENGINE METRICS</span>
-              <div className="p-3.5 rounded-xl bg-secondary/50 border border-border space-y-2.5 text-[11px]">
+              <div className="space-y-2 text-[11px]">
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground flex items-center gap-1.5"><Cpu className="w-3.5 h-3.5 text-primary" /> AST Engine:</span>
-                  <span className="font-bold text-foreground">Python 3.12</span>
+                  <span className="text-muted-foreground flex items-center gap-1.5"><Cpu className="w-3.5 h-3.5 text-primary" /> Parser:</span>
+                  <span className="font-bold text-foreground">Tree-sitter AST</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground flex items-center gap-1.5"><Activity className="w-3.5 h-3.5 text-emerald-600" /> System Vibe:</span>
-                  <span className="font-bold text-primary">Chilly Sage</span>
+                  <span className="text-muted-foreground flex items-center gap-1.5"><Activity className="w-3.5 h-3.5 text-emerald-600" /> Mode:</span>
+                  <span className="font-bold text-primary">Autonomous</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-primary" /> OWASP Audit:</span>
@@ -242,12 +297,14 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Quick Stat Card */}
-            <div className="p-4 rounded-xl bg-primary/10 border border-primary/20 space-y-2">
-              <div className="text-[10px] font-mono font-bold text-primary uppercase">Modernization Readiness</div>
-              <div className="text-xl font-bold font-mono text-foreground">100% Automated</div>
-              <p className="text-[11px] text-muted-foreground font-sans leading-tight">Zero manual code inventory required.</p>
-            </div>
+            {/* Quick Action Trigger */}
+            <button
+              onClick={() => setActiveTab('workbench')}
+              className="w-full py-2.5 px-4 bg-primary/10 hover:bg-primary/15 text-primary border border-primary/20 rounded-2xl font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+            >
+              <Rocket className="w-4 h-4" />
+              <span>Run Quick Repo Scan</span>
+            </button>
 
           </div>
         </aside>
