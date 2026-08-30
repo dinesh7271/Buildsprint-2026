@@ -8,7 +8,7 @@ import { ErrorState } from '@/components/ErrorState';
 import { ReportTabs } from '@/components/ReportTabs';
 import { analyzeRepository } from '@/lib/api';
 import { MigrationRequest, AnalysisResponse, ApiError } from '@/lib/types';
-import { Terminal, GitFork, Layout, Compass, Sparkles, HelpCircle, Award, Flame, Star, Coffee, Code2, Shield, Activity, ChevronRight, Layers, Cpu } from 'lucide-react';
+import { Radar, GitFork, Layout, Compass, Sparkles, HelpCircle, Award, Flame, Star, Coffee, Code2, Shield, Activity, ChevronRight, Layers, Cpu, Terminal, Rocket } from 'lucide-react';
 
 type ViewState = 'idle' | 'loading' | 'success' | 'error';
 type ActiveTab = 'overview' | 'workbench' | 'presets' | 'guide';
@@ -59,9 +59,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col font-sans relative overflow-x-hidden selection:bg-primary/20 selection:text-primary">
-      {/* Soft Ambient Background Glows */}
-      <div className="fixed top-0 left-1/4 w-[700px] h-[500px] bg-emerald-600/5 rounded-full blur-[160px] pointer-events-none" />
-      <div className="fixed bottom-0 right-1/4 w-[600px] h-[500px] bg-teal-600/5 rounded-full blur-[160px] pointer-events-none" />
+      {/* Animated Soft Ambient Background Glows */}
+      <div className="fixed top-[-100px] left-[10%] w-[650px] h-[650px] bg-emerald-600/10 rounded-full blur-[160px] pointer-events-none animate-float-slow" />
+      <div className="fixed bottom-[-100px] right-[10%] w-[600px] h-[600px] bg-teal-600/10 rounded-full blur-[160px] pointer-events-none animate-float-reverse" />
+      <div className="fixed top-[40%] left-[40%] w-[450px] h-[450px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
 
       {/* Grid Canvas Overlay */}
       <div 
@@ -77,11 +78,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3 cursor-pointer" onClick={handleReset}>
-            <div className="p-2 rounded-xl bg-primary text-primary-foreground shadow-sm">
-              <Terminal className="w-4 h-4" />
+            <div className="p-2 rounded-xl bg-primary text-primary-foreground shadow-sm flex items-center justify-center">
+              <Radar className="w-5 h-5 animate-pulse" />
             </div>
             <div>
-              <span className="font-extrabold text-base tracking-tight font-mono text-foreground">
+              <span className="font-extrabold text-base tracking-tight font-mono text-foreground flex items-center gap-1">
                 Migration<span className="text-primary font-black">Scout</span>
               </span>
               <span className="text-[10px] font-mono text-muted-foreground block -mt-1 font-bold">AI Modernization Suite</span>
@@ -147,10 +148,10 @@ export default function Home() {
       </header>
 
       {/* Main SaaS Layout Shell */}
-      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col lg:flex-row gap-8 relative z-10">
+      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col lg:flex-row items-start gap-8 relative z-10">
         
         {/* Left Sidebar Control Dashboard Panel */}
-        <aside className="w-full lg:w-72 shrink-0 flex flex-col gap-6">
+        <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-20 lg:self-start flex flex-col gap-6">
           <div className="p-5 rounded-2xl border border-border bg-card shadow-sm space-y-6">
             
             {/* Sidebar Title */}
