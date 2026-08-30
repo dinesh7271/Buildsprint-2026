@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, CheckCircle2, AlertCircle, Terminal, Cpu, FileSearch, Sparkles, Code, GitBranch } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Loader2, CheckCircle2, Terminal, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 
@@ -110,21 +110,21 @@ export function LoadingState({ onComplete, targetStack, repoUrl }: LoadingStateP
       exit={{ opacity: 0, scale: 0.98 }}
       className="w-full max-w-3xl mx-auto space-y-6"
     >
-      <Card className="border-slate-800 bg-slate-900/90 backdrop-blur-xl shadow-2xl shadow-cyan-950/30 overflow-hidden">
+      <Card className="border-slate-800/60 bg-slate-900/40 backdrop-blur-xl shadow-2xl shadow-cyan-950/5 overflow-hidden rounded-2xl">
         {/* Header gradient bar */}
-        <div className="h-1 bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-500 animate-pulse" />
+        <div className="h-[1.5px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent animate-pulse" />
 
         <CardContent className="p-6 sm:p-8 space-y-8">
           {/* Agent Active Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/60">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-lg bg-cyan-950/60 border border-cyan-500/30 text-cyan-400">
+              <div className="p-2.5 rounded-xl bg-cyan-500/5 border border-cyan-500/10 text-cyan-400">
                 <Sparkles className="w-5 h-5 animate-spin" style={{ animationDuration: '3s' }} />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-slate-100 flex items-center gap-2">
-                  Scout Agent Active
-                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                <h3 className="text-sm font-bold font-mono tracking-tight text-slate-100 flex items-center gap-2">
+                  SCOUT AGENT ACTIVE
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase tracking-wider font-bold">
                     PARSING
                   </span>
                 </h3>
@@ -135,15 +135,15 @@ export function LoadingState({ onComplete, targetStack, repoUrl }: LoadingStateP
             </div>
 
             <div className="text-right sm:text-right font-mono">
-              <span className="text-2xl font-black text-cyan-400">{progressPercent}%</span>
-              <p className="text-[11px] text-slate-500">Overall Progress</p>
+              <span className="text-2xl font-black text-cyan-400 tracking-tight">{progressPercent}%</span>
+              <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Overall Progress</p>
             </div>
           </div>
 
           {/* Progress bar */}
           <div className="space-y-2">
-            <Progress value={progressPercent} className="h-2 bg-slate-950 border border-slate-800" />
-            <div className="flex justify-between text-[11px] font-mono text-slate-400">
+            <Progress value={progressPercent} className="h-1.5 bg-slate-950 border border-slate-900 rounded-full overflow-hidden" />
+            <div className="flex justify-between text-[10px] font-mono uppercase tracking-wider font-bold text-slate-500">
               <span>Target: {targetStack || 'Next.js 15'}</span>
               <span>Step {Math.min(currentStepIndex + 1, STEPS.length)} of {STEPS.length}</span>
             </div>
@@ -158,27 +158,27 @@ export function LoadingState({ onComplete, targetStack, repoUrl }: LoadingStateP
               return (
                 <div
                   key={step.id}
-                  className={`p-3 rounded-lg border text-xs transition-all relative ${
+                  className={`p-3.5 rounded-xl border text-xs transition-all relative ${
                     isDone
-                      ? 'bg-emerald-950/20 border-emerald-500/40 text-emerald-300'
+                      ? 'bg-emerald-950/10 border-emerald-500/20 text-emerald-300'
                       : isCurrent
-                      ? 'bg-cyan-950/40 border-cyan-500/60 text-cyan-200 shadow-md shadow-cyan-950/40'
-                      : 'bg-slate-950/40 border-slate-800/80 text-slate-500'
+                      ? 'bg-cyan-950/15 border-cyan-500/40 text-cyan-200 shadow-md'
+                      : 'bg-slate-950/20 border-slate-800/60 text-slate-500'
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-1.5 font-semibold">
+                  <div className="flex items-center gap-2 mb-1.5 font-bold font-mono uppercase text-[10px] tracking-wider">
                     {isDone ? (
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                     ) : isCurrent ? (
-                      <Loader2 className="w-4 h-4 text-cyan-400 animate-spin shrink-0" />
+                      <Loader2 className="w-3.5 h-3.5 text-cyan-400 animate-spin shrink-0" />
                     ) : (
-                      <div className="w-4 h-4 rounded-full border border-slate-700 text-[10px] flex items-center justify-center shrink-0">
+                      <div className="w-3.5 h-3.5 rounded-full border border-slate-800 text-[9px] flex items-center justify-center shrink-0">
                         {idx + 1}
                       </div>
                     )}
-                    <span className="truncate">{step.title}</span>
+                    <span className="truncate">{step.title.replace('...', '')}</span>
                   </div>
-                  <p className="text-[10px] text-slate-400 line-clamp-2 leading-relaxed">
+                  <p className="text-[10px] text-slate-400 line-clamp-2 leading-relaxed font-sans">
                     {step.description}
                   </p>
                 </div>
@@ -188,22 +188,22 @@ export function LoadingState({ onComplete, targetStack, repoUrl }: LoadingStateP
 
           {/* Real-time Agent CLI Console */}
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-              <span className="flex items-center gap-1.5 text-slate-300">
+            <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">
+              <span className="flex items-center gap-1.5 text-slate-400">
                 <Terminal className="w-3.5 h-3.5 text-cyan-400" />
                 Live Agent Terminal Execution
               </span>
-              <span className="flex items-center gap-1 text-emerald-400 text-[11px]">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              <span className="flex items-center gap-1 text-emerald-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 STREAMING
               </span>
             </div>
 
-            <div className="bg-slate-950 rounded-lg p-4 border border-slate-800 font-mono text-xs text-slate-300 space-y-2 h-44 overflow-y-auto shadow-inner">
+            <div className="bg-slate-950/60 rounded-xl p-4 border border-slate-800/80 font-mono text-[11px] text-slate-400 space-y-2 h-44 overflow-y-auto shadow-inner">
               {completedSteps.map((sIdx) =>
                 STEPS[sIdx].logs.map((log, lIdx) => (
                   <div key={`done-${sIdx}-${lIdx}`} className="text-slate-500 flex items-start gap-2">
-                    <span className="text-emerald-500/80">✔</span>
+                    <span className="text-emerald-500/80 font-bold">✔</span>
                     <span>{log}</span>
                   </div>
                 ))
@@ -223,7 +223,7 @@ export function LoadingState({ onComplete, targetStack, repoUrl }: LoadingStateP
               ))}
 
               <div className="flex items-center gap-1 text-slate-600 pt-1">
-                <span className="w-2 h-4 bg-cyan-400 animate-pulse inline-block" />
+                <span className="w-1.5 h-3 bg-cyan-400 animate-pulse inline-block" />
               </div>
             </div>
           </div>

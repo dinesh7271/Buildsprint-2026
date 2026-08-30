@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, ArrowRight, RotateCcw, Cpu, Layers, Clock, AlertTriangle, FileCode2, Zap, ArrowUpRight } from 'lucide-react';
+import { CheckCircle2, RotateCcw, Cpu, Layers, Zap } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

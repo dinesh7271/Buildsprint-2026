@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { AlertTriangle, RefreshCw, ArrowLeft, Bug, Terminal, ShieldAlert } from 'lucide-react';
+import { RefreshCw, ArrowLeft, Terminal, ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ApiError } from '@/lib/types';

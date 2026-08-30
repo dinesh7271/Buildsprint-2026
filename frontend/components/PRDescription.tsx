@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { PRDescription as PRDescriptionType } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { GitPullRequest, Copy, Check, FileText, CheckCircle2 } from 'lucide-react';
 
 interface PRDescriptionProps {
@@ -16,7 +15,7 @@ export function PRDescription({ prDescription }: PRDescriptionProps) {
 
   if (!prDescription) {
     return (
-      <Card className="bg-slate-900/80 border-slate-800">
+      <Card className="bg-slate-900/40 border-slate-800/80 rounded-2xl">
         <CardContent className="py-8 text-center text-slate-400 text-sm">
           No Pull Request description template generated.
         </CardContent>
@@ -31,15 +30,15 @@ export function PRDescription({ prDescription }: PRDescriptionProps) {
   };
 
   return (
-    <Card className="bg-slate-900/80 border-slate-800">
+    <Card className="bg-slate-900/40 border-slate-800/80 rounded-2xl">
       <CardHeader className="border-b border-slate-800/60 pb-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <div className="p-2 rounded-xl bg-emerald-500/5 text-emerald-400 border border-emerald-500/10">
               <GitPullRequest className="w-5 h-5" />
             </div>
             <div>
-              <CardTitle className="text-lg font-bold text-slate-100">Automated PR Body Template</CardTitle>
+              <CardTitle className="text-sm font-bold font-mono uppercase tracking-tight text-slate-100">Automated PR Body Template</CardTitle>
               <CardDescription className="text-xs text-slate-400">
                 Ready-to-paste Pull Request description formatted in Markdown
               </CardDescription>
@@ -48,17 +47,17 @@ export function PRDescription({ prDescription }: PRDescriptionProps) {
           <Button
             size="sm"
             onClick={handleCopyMarkdown}
-            className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-mono text-xs font-semibold shadow-md shadow-emerald-500/20"
+            className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-[11px] uppercase tracking-wider font-bold shadow-md shadow-emerald-500/10 rounded-xl h-9 px-4 cursor-pointer"
           >
             {copied ? (
               <>
                 <Check className="w-4 h-4 mr-1.5" />
-                Copied PR Body!
+                Copied!
               </>
             ) : (
               <>
                 <Copy className="w-4 h-4 mr-1.5" />
-                Copy PR Body Markdown
+                Copy PR Body
               </>
             )}
           </Button>
@@ -66,8 +65,8 @@ export function PRDescription({ prDescription }: PRDescriptionProps) {
       </CardHeader>
       <CardContent className="pt-6 space-y-6">
         {/* Suggested Branch Title */}
-        <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
-          <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block font-semibold">
+        <div className="p-3.5 rounded-xl bg-slate-950/40 border border-slate-800/80 space-y-1">
+          <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block font-bold">
             Suggested PR Title:
           </span>
           <div className="font-mono text-xs text-cyan-300 font-bold">{prDescription.title}</div>
@@ -75,21 +74,21 @@ export function PRDescription({ prDescription }: PRDescriptionProps) {
 
         {/* Formatted Markdown Box */}
         <div className="relative">
-          <div className="flex items-center justify-between px-3 py-1.5 rounded-t-md bg-slate-950 border-t border-x border-slate-800">
-            <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+          <div className="flex items-center justify-between px-3 py-1.5 rounded-t-xl bg-slate-950/40 border-t border-x border-slate-800/80">
+            <span className="text-[10px] font-mono text-slate-400 flex items-center gap-1.5 uppercase font-bold tracking-wider">
               <FileText className="w-3.5 h-3.5 text-cyan-400" />
               PULL_REQUEST_TEMPLATE.md
             </span>
-            <span className="text-[10px] font-mono text-slate-500">MARKDOWN</span>
+            <span className="text-[10px] font-mono text-slate-500 uppercase font-bold tracking-wider">Markdown</span>
           </div>
-          <pre className="p-4 rounded-b-md bg-slate-950 border border-slate-800 font-mono text-xs text-slate-200 overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-[400px]">
+          <pre className="p-4 rounded-b-xl bg-slate-950/60 border border-slate-800/80 font-mono text-[11px] text-slate-200/90 overflow-x-auto whitespace-pre-wrap leading-relaxed max-h-[400px]">
             <code>{prDescription.markdown}</code>
           </pre>
         </div>
 
         {/* Verification Checklist */}
-        <div className="p-4 rounded-lg bg-slate-950/60 border border-slate-800/80 space-y-2">
-          <h4 className="text-xs font-mono font-semibold text-slate-300 uppercase tracking-wider">
+        <div className="p-4 rounded-xl bg-slate-950/40 border border-slate-800/80 space-y-2">
+          <h4 className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
             Key Highlights & Included Changes
           </h4>
           <ul className="space-y-1.5">

@@ -71,22 +71,22 @@ export function AnalysisForm({ onSubmit, isLoading }: AnalysisFormProps) {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-full max-w-3xl mx-auto"
     >
-      <Card className="border-slate-800 bg-slate-900/80 backdrop-blur-xl shadow-2xl shadow-cyan-950/20 overflow-hidden relative">
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500" />
+      <Card className="border-slate-800/60 bg-slate-900/40 backdrop-blur-xl shadow-2xl shadow-cyan-950/5 overflow-hidden relative rounded-2xl">
+        <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
         
         <CardContent className="p-6 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* GitHub URL Input Section */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="githubUrl" className="text-sm font-semibold text-slate-200 flex items-center gap-2">
-                  <GitFork className="w-4 h-4 text-cyan-400" />
-                  GitHub Repository URL <span className="text-cyan-400">*</span>
+                <Label htmlFor="githubUrl" className="text-xs font-semibold text-slate-300 font-mono tracking-tight flex items-center gap-2">
+                  <GitFork className="w-3.5 h-3.5 text-cyan-400" />
+                  GITHUB REPOSITORY URL <span className="text-cyan-500">*</span>
                 </Label>
-                <span className="text-xs text-slate-400 font-mono">Public or Private</span>
+                <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">Public or Private</span>
               </div>
               
-              <div className="relative">
+              <div className="relative flex items-center">
                 <Input
                   id="githubUrl"
                   type="url"
@@ -97,21 +97,21 @@ export function AnalysisForm({ onSubmit, isLoading }: AnalysisFormProps) {
                     if (validationError) setValidationError('');
                   }}
                   disabled={isLoading}
-                  className="h-12 pl-4 pr-32 bg-slate-950/80 border-slate-700/80 text-slate-100 placeholder:text-slate-500 focus-visible:ring-cyan-500 focus-visible:border-cyan-500 font-mono text-sm transition-all"
+                  className="h-12 pl-4 pr-36 bg-slate-950/40 border-slate-800 text-slate-100 placeholder:text-slate-600 focus-visible:ring-cyan-500/30 focus-visible:border-cyan-500/50 font-mono text-xs transition-all rounded-xl"
                 />
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="absolute right-1.5 top-1.5 bottom-1.5 h-9 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-semibold px-4 shadow-lg shadow-cyan-500/20 transition-all text-xs"
+                  className="absolute right-1.5 h-9 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-mono tracking-tight px-4 shadow-md shadow-cyan-500/10 transition-all text-xs rounded-lg cursor-pointer"
                 >
                   {isLoading ? (
                     <span className="flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 animate-spin" />
-                      Analyzing...
+                      ANALYZING...
                     </span>
                   ) : (
                     <span className="flex items-center gap-1.5">
-                      Scout Codebase
+                      SCOUT CODEBASE
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   )}
@@ -119,7 +119,7 @@ export function AnalysisForm({ onSubmit, isLoading }: AnalysisFormProps) {
               </div>
 
               {validationError && (
-                <p className="text-xs font-medium text-rose-400 mt-1.5 flex items-center gap-1">
+                <p className="text-[11px] font-medium font-mono text-rose-400 mt-1.5 flex items-center gap-1">
                   <span>⚠</span> {validationError}
                 </p>
               )}
@@ -128,15 +128,15 @@ export function AnalysisForm({ onSubmit, isLoading }: AnalysisFormProps) {
             {/* Target Stack Selection */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="space-y-2">
-                <Label htmlFor="targetStack" className="text-xs font-medium text-slate-300 flex items-center gap-1.5">
+                <Label htmlFor="targetStack" className="text-xs font-semibold text-slate-300 font-mono tracking-tight flex items-center gap-1.5">
                   <Layers className="w-3.5 h-3.5 text-purple-400" />
-                  Target Modern Architecture
+                  TARGET ARCHITECTURE
                 </Label>
                 <Select value={targetStack} onValueChange={(val) => val && setTargetStack(val)} disabled={isLoading}>
-                  <SelectTrigger className="bg-slate-950/80 border-slate-700 text-slate-200 text-xs h-10 focus:ring-purple-500">
+                  <SelectTrigger className="bg-slate-950/40 border-slate-800 text-slate-300 font-mono text-xs h-10 focus:ring-purple-500/20 rounded-xl">
                     <SelectValue placeholder="Select target stack" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-900 border-slate-800 text-slate-200">
+                  <SelectContent className="bg-slate-900 border-slate-800 text-slate-300 font-mono text-xs rounded-xl">
                     <SelectItem value="Next.js 15 (App Router)">Next.js 15 (App Router + React 19)</SelectItem>
                     <SelectItem value="React 19 + Vite + TypeScript">React 19 + Vite SPA</SelectItem>
                     <SelectItem value="Fastify + Node.js 20">Fastify Microservice (Node 20)</SelectItem>
@@ -152,14 +152,14 @@ export function AnalysisForm({ onSubmit, isLoading }: AnalysisFormProps) {
                   type="button"
                   variant="outline"
                   onClick={() => setShowAdvanced(!showAdvanced)}
-                  className="w-full h-10 border-slate-800 bg-slate-950/40 hover:bg-slate-800/60 text-slate-400 hover:text-slate-200 text-xs flex items-center justify-between"
+                  className="w-full h-10 border-slate-800 bg-slate-950/10 hover:bg-slate-800/20 text-slate-400 hover:text-slate-200 text-xs font-mono flex items-center justify-between rounded-xl"
                 >
                   <span className="flex items-center gap-2">
                     <Settings2 className="w-3.5 h-3.5 text-cyan-400" />
-                    Analysis Parameters
+                    ANALYSIS PARAMETERS
                   </span>
-                  <span className="text-[10px] font-mono bg-slate-800 px-1.5 py-0.5 rounded text-slate-300">
-                    {showAdvanced ? 'Hide' : 'Customize'}
+                  <span className="text-[9px] font-mono bg-slate-800/40 px-1.5 py-0.5 rounded text-slate-400 border border-slate-800">
+                    {showAdvanced ? 'HIDE' : 'CUSTOMIZE'}
                   </span>
                 </Button>
               </div>
@@ -171,56 +171,56 @@ export function AnalysisForm({ onSubmit, isLoading }: AnalysisFormProps) {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="p-4 rounded-lg bg-slate-950/60 border border-slate-800/80 space-y-3"
+                className="p-4 rounded-xl bg-slate-950/20 border border-slate-800/60 space-y-3"
               >
-                <div className="text-xs font-semibold text-slate-300 mb-2 flex items-center gap-1.5">
+                <div className="text-[10px] font-mono uppercase font-semibold text-slate-400 mb-2 flex items-center gap-1.5">
                   <Code2 className="w-3.5 h-3.5 text-cyan-400" />
                   Scout Scanner Configuration
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <label
-                    className={`flex items-center gap-2.5 p-2.5 rounded border text-xs cursor-pointer transition-all ${
-                      includeTests ? 'bg-cyan-950/30 border-cyan-500/40 text-cyan-200' : 'bg-slate-900/40 border-slate-800 text-slate-400'
+                    className={`flex items-center gap-2.5 p-2.5 rounded-lg border text-[11px] font-mono cursor-pointer transition-all ${
+                      includeTests ? 'bg-cyan-950/10 border-cyan-500/30 text-cyan-300' : 'bg-slate-900/10 border-slate-800/60 text-slate-500'
                     }`}
                     onClick={() => setIncludeTests(!includeTests)}
                   >
-                    <div className={`w-4 h-4 rounded border flex items-center justify-center ${includeTests ? 'bg-cyan-500 border-cyan-400 text-slate-950' : 'border-slate-700'}`}>
-                      {includeTests && <Check className="w-3 h-3 stroke-[3]" />}
+                    <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center transition-all ${includeTests ? 'bg-cyan-500 border-cyan-400 text-slate-950' : 'border-slate-800 bg-slate-950'}`}>
+                      {includeTests && <Check className="w-2.5 h-2.5 stroke-[3.5]" />}
                     </div>
-                    <span>Generate Test Suite Plan</span>
+                    <span>Generate Tests</span>
                   </label>
 
                   <label
-                    className={`flex items-center gap-2.5 p-2.5 rounded border text-xs cursor-pointer transition-all ${
-                      modernizeDeps ? 'bg-purple-950/30 border-purple-500/40 text-purple-200' : 'bg-slate-900/40 border-slate-800 text-slate-400'
+                    className={`flex items-center gap-2.5 p-2.5 rounded-lg border text-[11px] font-mono cursor-pointer transition-all ${
+                      modernizeDeps ? 'bg-purple-950/10 border-purple-500/30 text-purple-300' : 'bg-slate-900/10 border-slate-800/60 text-slate-500'
                     }`}
                     onClick={() => setModernizeDeps(!modernizeDeps)}
                   >
-                    <div className={`w-4 h-4 rounded border flex items-center justify-center ${modernizeDeps ? 'bg-purple-500 border-purple-400 text-slate-950' : 'border-slate-700'}`}>
-                      {modernizeDeps && <Check className="w-3 h-3 stroke-[3]" />}
+                    <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center transition-all ${modernizeDeps ? 'bg-purple-500 border-purple-400 text-slate-950' : 'border-slate-800 bg-slate-950'}`}>
+                      {modernizeDeps && <Check className="w-2.5 h-2.5 stroke-[3.5]" />}
                     </div>
-                    <span>Dependency Upgrade Map</span>
+                    <span>Upgrade Map</span>
                   </label>
 
                   <label
-                    className={`flex items-center gap-2.5 p-2.5 rounded border text-xs cursor-pointer transition-all ${
-                      securityAudit ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-200' : 'bg-slate-900/40 border-slate-800 text-slate-400'
+                    className={`flex items-center gap-2.5 p-2.5 rounded-lg border text-[11px] font-mono cursor-pointer transition-all ${
+                      securityAudit ? 'bg-emerald-950/10 border-emerald-500/30 text-emerald-300' : 'bg-slate-900/10 border-slate-800/60 text-slate-500'
                     }`}
                     onClick={() => setSecurityAudit(!securityAudit)}
                   >
-                    <div className={`w-4 h-4 rounded border flex items-center justify-center ${securityAudit ? 'bg-emerald-500 border-emerald-400 text-slate-950' : 'border-slate-700'}`}>
-                      {securityAudit && <Check className="w-3 h-3 stroke-[3]" />}
+                    <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center transition-all ${securityAudit ? 'bg-emerald-500 border-emerald-400 text-slate-950' : 'border-slate-800 bg-slate-950'}`}>
+                      {securityAudit && <Check className="w-2.5 h-2.5 stroke-[3.5]" />}
                     </div>
-                    <span>OWASP Security Audit</span>
+                    <span>OWASP Audit</span>
                   </label>
                 </div>
               </motion.div>
             )}
 
             {/* Quick Preset Repos */}
-            <div className="pt-2 border-t border-slate-800/80">
-              <div className="text-[11px] font-mono text-slate-500 mb-2.5 uppercase tracking-wider">Try Sample Repositories</div>
+            <div className="pt-4 border-t border-slate-800/60">
+              <div className="text-[10px] font-mono text-slate-500 mb-2.5 uppercase tracking-wider font-semibold">Try Sample Repositories</div>
               <div className="flex flex-wrap gap-2">
                 {SAMPLE_REPOS.map((sample, idx) => (
                   <button
@@ -228,9 +228,9 @@ export function AnalysisForm({ onSubmit, isLoading }: AnalysisFormProps) {
                     type="button"
                     onClick={() => handleSelectSample(sample)}
                     disabled={isLoading}
-                    className="text-xs px-2.5 py-1.5 rounded-md border border-slate-800 bg-slate-950/40 text-slate-300 hover:border-slate-700 hover:bg-slate-800/60 transition-all font-mono flex items-center gap-1.5"
+                    className="text-[11px] px-2.5 py-1.5 rounded-lg border border-slate-800 bg-slate-950/20 text-slate-400 hover:border-slate-700 hover:text-slate-200 transition-all font-mono flex items-center gap-1.5 cursor-pointer"
                   >
-                    <span className="text-cyan-400">⚡</span>
+                    <span className="text-cyan-400/80">⚡</span>
                     {sample.label}
                   </button>
                 ))}

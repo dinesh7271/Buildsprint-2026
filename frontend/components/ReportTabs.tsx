@@ -102,19 +102,19 @@ ${data.prDescription?.markdown || 'N/A'}
   return (
     <div className="space-y-6">
       {/* Top Header Controls Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-md">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 shadow-xl backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+          <div className="p-2.5 rounded-xl bg-cyan-500/5 text-cyan-400 border border-cyan-500/10">
             <Terminal className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-slate-100 font-mono tracking-tight">{data.repoName}</h2>
-              <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[10px] font-mono">
+              <h2 className="text-sm font-bold text-slate-100 font-mono tracking-tight">{data.repoName}</h2>
+              <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[9px] font-mono font-bold uppercase tracking-wider">
                 Analysis Complete
               </Badge>
             </div>
-            <p className="text-xs text-slate-400 font-mono">
+            <p className="text-[11px] text-slate-500 font-mono">
               Target: <span className="text-cyan-400">{data.recommendedStack?.framework || 'Next.js 15'}</span>
             </p>
           </div>
@@ -126,7 +126,7 @@ ${data.prDescription?.markdown || 'N/A'}
             disabled={downloading}
             variant="outline"
             size="sm"
-            className="border-cyan-500/30 hover:bg-cyan-950/40 text-cyan-300 font-mono text-xs gap-1.5"
+            className="border-cyan-500/20 bg-cyan-950/10 hover:bg-cyan-950/20 text-cyan-300 font-mono text-[11px] uppercase tracking-wider font-bold gap-1.5 rounded-xl cursor-pointer"
           >
             {downloading ? (
               <>
@@ -136,7 +136,7 @@ ${data.prDescription?.markdown || 'N/A'}
             ) : (
               <>
                 <Download className="w-3.5 h-3.5" />
-                <span>Download Report (.md)</span>
+                <span>Download Report</span>
               </>
             )}
           </Button>
@@ -144,7 +144,7 @@ ${data.prDescription?.markdown || 'N/A'}
             onClick={onReset}
             variant="ghost"
             size="sm"
-            className="text-slate-400 hover:text-slate-200 hover:bg-slate-800 font-mono text-xs gap-1.5"
+            className="text-slate-400 hover:text-slate-200 hover:bg-slate-800/20 font-mono text-[11px] uppercase tracking-wider font-bold gap-1.5 rounded-xl cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>New Scan</span>
@@ -154,45 +154,45 @@ ${data.prDescription?.markdown || 'N/A'}
 
       {/* Main Tabbed Interface */}
       <Tabs defaultValue="overview" value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
-        <TabsList className="bg-slate-900/90 border border-slate-800 p-1 rounded-xl w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1 h-auto">
+        <TabsList className="bg-slate-900/40 border border-slate-800/80 p-1 rounded-2xl w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1 h-auto">
           <TabsTrigger
             value="overview"
-            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all"
+            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer"
           >
             <LayoutDashboard className="w-3.5 h-3.5" />
             <span>Overview</span>
           </TabsTrigger>
           <TabsTrigger
             value="risks"
-            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all"
+            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer"
           >
             <ShieldAlert className="w-3.5 h-3.5" />
             <span>Risks & Deps</span>
           </TabsTrigger>
           <TabsTrigger
             value="recommendations"
-            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all"
+            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Proposals</span>
           </TabsTrigger>
           <TabsTrigger
             value="plan"
-            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all"
+            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer"
           >
             <Layers className="w-3.5 h-3.5" />
             <span>Roadmap</span>
           </TabsTrigger>
           <TabsTrigger
             value="code"
-            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all"
+            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer"
           >
             <Code2 className="w-3.5 h-3.5" />
             <span>Code Diff</span>
           </TabsTrigger>
           <TabsTrigger
             value="pr"
-            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-xs py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all"
+            className="data-[state=active]:bg-cyan-500 data-[state=active]:text-slate-950 font-mono text-[11px] font-bold uppercase tracking-wider py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer"
           >
             <GitPullRequest className="w-3.5 h-3.5" />
             <span>PR Template</span>
